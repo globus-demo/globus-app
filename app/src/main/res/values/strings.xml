@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">GlobusApp</string>
+    <string name="feed_page">Лента</string>
+    <string name="messages_page">Сообщения</string>
+    <string name="profile_page">Профиль</string>
+    <string name="globe_page">Глобус</string>
 </resources>
