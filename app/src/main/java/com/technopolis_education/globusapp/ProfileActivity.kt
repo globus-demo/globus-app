@@ -5,13 +5,14 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
-class MainActivity : AppCompatActivity() {
+class ProfileActivity: AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.profile_page)
+        setTitle(R.string.profile_page)
 
-        val bottomView : BottomNavigationView = findViewById(R.id.bottom_nav_bar)
-        bottomView.setOnNavigationItemReselectedListener { item ->
+        val bottomView: BottomNavigationView = findViewById(R.id.bottom_nav_bar)
+        bottomView.setOnNavigationItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.feed -> {
                     startActivity(Intent(this, FeedActivity::class.java))
