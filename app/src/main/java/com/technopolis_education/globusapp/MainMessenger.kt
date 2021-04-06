@@ -5,10 +5,11 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
-class MainActivity : AppCompatActivity() {
+class MainMessenger : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.messenger_main)
+        title = "Messenger"
 
         val bottomView: BottomNavigationView = findViewById(R.id.bottom_nav_bar)
         bottomView.setOnNavigationItemSelectedListener { item ->
