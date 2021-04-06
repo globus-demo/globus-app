@@ -53,7 +53,7 @@ class MainRegister : AppCompatActivity() {
                     .isEmpty() && !confirmPassword.text.toString()
                     .isEmpty() && confirmPassword.text.toString().equals(password.text.toString())
             ) {
-                val intent = Intent(this, FeedActivity::class.java)
+                val intent = Intent(this, MainActivity::class.java)
                 startActivity(intent)
             }
         }

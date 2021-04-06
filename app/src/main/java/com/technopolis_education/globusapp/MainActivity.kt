@@ -1,9 +1,11 @@
 package com.technopolis_education.globusapp
 
-import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.navigation.findNavController
+import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
+
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -11,25 +13,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         val bottomView: BottomNavigationView = findViewById(R.id.bottom_nav_bar)
-        bottomView.setOnNavigationItemSelectedListener { item ->
-            when (item.itemId) {
-                R.id.feed -> {
-                    startActivity(Intent(this, FeedActivity::class.java))
-                    true
-                }
-                R.id.messages -> {
-                    startActivity(Intent(this, MainMessenger::class.java))
-                    true
-                }
-                R.id.globe -> {
-                    true
-                }
-                R.id.profile -> {
-                    startActivity(Intent(this, ProfileActivity::class.java))
-                    true
-                }
-                else -> false
-            }
-        }
+        val navController = findNavController(R.id.main_fragment)
+        bottomView.setupWithNavController(navController)
     }
 }
