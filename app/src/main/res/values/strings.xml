@@ -1,6 +1,15 @@
 <resources>
     <string name="app_name">GlobusApp</string>
     <string name="login">Login</string>
-    <string name="enter_your_login_or_email">Enter your login or email</string>
+    <string name="enter_your_email">Enter your email</string>
     <string name="password">Password</string>
+    <string name="auth_title">To work with our application please log in</string>
+    <string name="register_text">Not registered yet? Create an account</string>
+    <string name="registration_title">Registration</string>
+    <string name="name_surname_title">Enter your Name and Surname</string>
+    <string name="confirm_password_title">Confirm your password</string>
+    <string name="enter_password_titile">Enter your password</string>
+    <string name="enter_e_mail_title">Enter your e-mail</string>
+    <string name="confirm_registration">Confirm registration</string>
+    <string name="enter_your_password">Enter your password</string>
 </resources>
