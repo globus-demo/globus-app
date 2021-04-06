@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph">
+
+    <fragment
+        android:id="@+id/feed_fragment"
+        android:name="com.technopolis_education.globusapp.FeedActivity"
+        android:label="FeedActivity"
+        tools:layout="@layout/feed_activity">
+
+        <action
+            android:id="@+id/action_feed_fragment_to_profile_fragment"
+            app:destination="@id/profile_fragment" />
+        <action
+            android:id="@+id/action_feed_fragment_to_message_fragment"
+            app:destination="@id/message_fragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/message_fragment"
+        android:name="com.technopolis_education.globusapp.MainMessenger"
+        android:label="MainMessenger"
+        tools:layout="@layout/messenger_main">
+
+        <action
+            android:id="@+id/action_message_fragment_to_profile_fragment"
+            app:destination="@id/profile_fragment" />
+        <action
+            android:id="@+id/action_main_fragment_to_feed_fragment"
+            app:destination="@id/feed_fragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/profile_fragment"
+        android:name="com.technopolis_education.globusapp.ProfileActivity"
+        android:label="ProfileActivity"
+        tools:layout="@layout/profile_page">
+
+        <action
+            android:id="@+id/action_profile_fragment_to_message_fragment"
+            app:destination="@id/message_fragment" />
+        <action
+            android:id="@+id/action_profile_fragment_to_feed_fragment"
+            app:destination="@id/feed_fragment" />
+    </fragment>
+
+
+</navigation>
