@@ -16,4 +16,5 @@
     <string name="messages_page">Messages</string>
     <string name="profile_page">Profile</string>
     <string name="globe_page">Globe</string>
+    <string name="search_messenger">All</string>
 </resources>

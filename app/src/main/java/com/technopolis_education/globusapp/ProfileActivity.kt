@@ -5,7 +5,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
-class ProfileActivity: AppCompatActivity() {
+class ProfileActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.profile_page)
@@ -19,6 +19,7 @@ class ProfileActivity: AppCompatActivity() {
                     true
                 }
                 R.id.messages -> {
+                    startActivity(Intent(this, MainMessenger::class.java))
                     true
                 }
                 R.id.globe -> {
