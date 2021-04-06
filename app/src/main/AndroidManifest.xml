@@ -22,7 +22,6 @@
             android:name=".MainRegister"
             android:screenOrientation="portrait" />
         <activity android:name=".FeedActivity"/>
-        <activity android:name=".MainAuthorization"/>
         <activity android:name=".ProfileActivity"/>
     </application>
 
