@@ -13,6 +13,7 @@ class MainAuthorization : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.authorization_main)
+        title = "Authorization"
 
         val login = findViewById<EditText>(R.id.login)
         val password = findViewById<EditText>(R.id.password)
@@ -28,6 +29,11 @@ class MainAuthorization : AppCompatActivity() {
             if (password.text.toString().isEmpty()) {
                 password.hint = "This field must be filled"
                 password.setHintTextColor(Color.RED)
+            }
+
+            if (!password.text.toString().isEmpty() && !login.text.toString().isEmpty()) {
+                val intent = Intent(this, FeedActivity::class.java)
+                startActivity(intent)
             }
         }
 

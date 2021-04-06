@@ -1,5 +1,6 @@
 package com.technopolis_education.globusapp
 
+import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.widget.Button
@@ -11,6 +12,7 @@ class MainRegister : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.register_main)
+        title = "Registration"
 
         val nameAndSurname = findViewById<EditText>(R.id.name_surname_field)
         val email = findViewById<EditText>(R.id.e_mail_field)
@@ -44,6 +46,15 @@ class MainRegister : AppCompatActivity() {
                 val toast =
                     Toast.makeText(applicationContext, "Password mismatch", Toast.LENGTH_SHORT)
                 toast.show()
+            }
+
+            if (!nameAndSurname.text.toString().isEmpty() && !email.text.toString()
+                    .isEmpty() && !password.text.toString()
+                    .isEmpty() && !confirmPassword.text.toString()
+                    .isEmpty() && confirmPassword.text.toString().equals(password.text.toString())
+            ) {
+                val intent = Intent(this, FeedActivity::class.java)
+                startActivity(intent)
             }
         }
     }
