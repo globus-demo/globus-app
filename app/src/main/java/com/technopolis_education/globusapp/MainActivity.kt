@@ -10,8 +10,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val bottomView:BottomNavigationView = findViewById(R.id.bottom_nav_bar)
-        bottomView.setOnNavigationItemSelectedListener { item ->
+        val bottomView : BottomNavigationView = findViewById(R.id.bottom_nav_bar)
+        bottomView.setOnNavigationItemReselectedListener { item ->
             when (item.itemId) {
                 R.id.feed -> {
                     startActivity(Intent(this, FeedActivity::class.java))
@@ -24,6 +24,7 @@ class MainActivity : AppCompatActivity() {
                     true
                 }
                 R.id.profile -> {
+                    startActivity(Intent(this, ProfileActivity::class.java))
                     true
                 }
                 else -> false

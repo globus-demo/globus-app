@@ -16,8 +16,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".FeedActivity">
-        </activity>
+        <activity android:name=".FeedActivity"/>
+        <activity android:name=".MainAuthorization"/>
+        <activity android:name=".ProfileActivity"/>
     </application>
 
 </manifest>
