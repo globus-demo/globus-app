@@ -6,7 +6,6 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 
 class MainAuthorization : AppCompatActivity() {
@@ -33,7 +32,7 @@ class MainAuthorization : AppCompatActivity() {
             }
 
             if (!password.text.toString().isEmpty() && !login.text.toString().isEmpty()) {
-                val intent = Intent(this, FeedActivity::class.java)
+                val intent = Intent(this, MainActivity::class.java)
                 startActivity(intent)
             }
         }

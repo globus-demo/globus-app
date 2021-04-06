@@ -1,36 +1,19 @@
 package com.technopolis_education.globusapp
 
-import android.content.Intent
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
-import com.google.android.material.bottomnavigation.BottomNavigationView
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 
-class FeedActivity : AppCompatActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.feed_activity)
-        setTitle(R.string.feed_page)
+class FeedActivity : Fragment() {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View = inflater.inflate(R.layout.feed_activity, container, false)
 
-        val bottomView: BottomNavigationView = findViewById(R.id.bottom_nav_bar)
-        bottomView.setOnNavigationItemSelectedListener { item ->
-            when (item.itemId) {
-                R.id.feed -> {
-                    startActivity(Intent(this, FeedActivity::class.java))
-                    true
-                }
-                R.id.messages -> {
-                    startActivity(Intent(this, MainMessenger::class.java))
-                    true
-                }
-                R.id.globe -> {
-                    true
-                }
-                R.id.profile -> {
-                    startActivity(Intent(this, ProfileActivity::class.java))
-                    true
-                }
-                else -> false
-            }
-        }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
     }
 }
