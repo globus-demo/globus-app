@@ -12,4 +12,8 @@
     <string name="enter_e_mail_title">Enter your e-mail</string>
     <string name="confirm_registration">Confirm registration</string>
     <string name="enter_your_password">Enter your password</string>
+    <string name="feed_page">Feed</string>
+    <string name="messages_page">Messages</string>
+    <string name="profile_page">Profile</string>
+    <string name="globe_page">Globe</string>
 </resources>
