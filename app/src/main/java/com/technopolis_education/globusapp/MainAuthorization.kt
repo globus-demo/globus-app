@@ -32,7 +32,7 @@ class MainAuthorization : AppCompatActivity() {
             }
 
             if (!password.text.toString().isEmpty() && !login.text.toString().isEmpty()) {
-                val intent = Intent(this, FeedActivity::class.java)
+                val intent = Intent(this, MainActivity::class.java)
                 startActivity(intent)
             }
         }
