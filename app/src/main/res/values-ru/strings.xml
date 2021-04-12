@@ -1,0 +1,23 @@
+<resources>
+    <string name="app_name">GlobusApp</string>
+    <string name="login">Войти</string>
+    <string name="enter_your_email">Введите ваш e-mail</string>
+    <string name="password">Пароль</string>
+    <string name="auth_title">Для работы с приложением авторизуйтесь</string>
+    <string name="register_text">Еще не зарегистрированы? Создать аккаунт</string>
+    <string name="registration_title">Регистриция</string>
+    <string name="name_surname_title">Введите Имя и Фамилию</string>
+    <string name="confirm_password_title">Подтвердите пароль</string>
+    <string name="enter_password_titile">Введите ваш пароль</string>
+    <string name="enter_e_mail_title">Введите ваш e-mail</string>
+    <string name="confirm_registration">Подтвердить регистрацию</string>
+    <string name="enter_your_password">Введите ваш пароль</string>
+    <string name="feed_page">Лента</string>
+    <string name="messages_page">Сообщения</string>
+    <string name="profile_page">Профиль</string>
+    <string name="globe_page">Глобус</string>
+    <string name="search_messenger">Все</string>
+    <string name="hint"><font size="10">Поле должно быть заполнено</font></string>
+    <string name="password_missmatch">Пароли не совпадают</string>
+    <string name="authorization">Авторизация</string>
+</resources>

@@ -23,28 +23,28 @@ class MainRegister : AppCompatActivity() {
 
         button.setOnClickListener {
             if (nameAndSurname.text.toString().isEmpty()) {
-                nameAndSurname.hint = "This field must be filled"
+                nameAndSurname.hint = getString(R.string.hint)
                 nameAndSurname.setHintTextColor(Color.RED)
             }
 
             if (email.text.toString().isEmpty()) {
-                email.hint = "This field must be filled"
+                email.hint = getString(R.string.hint)
                 email.setHintTextColor(Color.RED)
             }
 
             if (password.text.toString().isEmpty()) {
-                password.hint = "This field must be filled"
+                password.hint = getString(R.string.hint)
                 password.setHintTextColor(Color.RED)
             }
 
             if (confirmPassword.text.toString().isEmpty()) {
-                confirmPassword.hint = "This field must be filled"
+                confirmPassword.hint = getString(R.string.hint)
                 confirmPassword.setHintTextColor(Color.RED)
             }
 
             if (!confirmPassword.text.toString().equals(password.text.toString())) {
                 val toast =
-                    Toast.makeText(applicationContext, "Password mismatch", Toast.LENGTH_SHORT)
+                    Toast.makeText(applicationContext, getString(R.string.password_missmatch), Toast.LENGTH_SHORT)
                 toast.show()
             }
 
