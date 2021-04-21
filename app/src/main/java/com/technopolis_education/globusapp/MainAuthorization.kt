@@ -1,5 +1,6 @@
 package com.technopolis_education.globusapp
 
+import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
@@ -20,6 +21,8 @@ class MainAuthorization : AppCompatActivity() {
         val button = findViewById<Button>(R.id.button)
         val register = findViewById<TextView>(R.id.register)
 
+        val sharedPreferences = getSharedPreferences("AUTH", Context.MODE_PRIVATE);
+
         button.setOnClickListener {
             if (login.text.toString().isEmpty()) {
                 login.hint = getString(R.string.hint)
@@ -32,8 +35,11 @@ class MainAuthorization : AppCompatActivity() {
             }
 
             if (!password.text.toString().isEmpty() && !login.text.toString().isEmpty()) {
-                val intent = Intent(this, MainActivity::class.java)
-                startActivity(intent)
+                if (password.text.toString().equals("12345") && login.text.toString().equals("admin")) {
+                    sharedPreferences.edit().putBoolean("Success", true).apply()
+                    val intent = Intent(this, MainActivity::class.java)
+                    startActivity(intent)
+                }
             }
         }
 

@@ -1,5 +1,6 @@
 package com.technopolis_education.globusapp
 
+import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
@@ -20,6 +21,8 @@ class MainRegister : AppCompatActivity() {
         val confirmPassword = findViewById<EditText>(R.id.confirm_password_field)
 
         val button = findViewById<Button>(R.id.confirm_register)
+
+        val sharedPreferences = getSharedPreferences("AUTH", Context.MODE_PRIVATE);
 
         button.setOnClickListener {
             if (nameAndSurname.text.toString().isEmpty()) {
@@ -53,6 +56,7 @@ class MainRegister : AppCompatActivity() {
                     .isEmpty() && !confirmPassword.text.toString()
                     .isEmpty() && confirmPassword.text.toString().equals(password.text.toString())
             ) {
+                sharedPreferences.edit().putBoolean("Success", true).apply()
                 val intent = Intent(this, MainActivity::class.java)
                 startActivity(intent)
             }
