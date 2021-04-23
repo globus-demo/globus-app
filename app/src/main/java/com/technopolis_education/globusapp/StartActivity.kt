@@ -15,14 +15,10 @@ class StartActivity : AppCompatActivity() {
 
         if (sharedPreferences.getBoolean("Success", false)){
             val intent = Intent(this, MainActivity::class.java)
-            Handler().postDelayed({
-                startActivity(intent);
-            }, 1000)
+            startActivity(intent);
         } else {
             val intent = Intent(this, MainAuthorization::class.java)
-            Handler().postDelayed({
-                startActivity(intent);
-            }, 1000)
+            startActivity(intent);
         }
     }
 }
