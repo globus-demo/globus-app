@@ -1,5 +1,6 @@
 package com.technopolis_education.globusapp
 
+import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
@@ -13,27 +14,32 @@ class MainAuthorization : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.authorization_main)
-        title = "Authorization"
+        title = getString(R.string.authorization)
 
         val login = findViewById<EditText>(R.id.login)
         val password = findViewById<EditText>(R.id.password)
         val button = findViewById<Button>(R.id.button)
         val register = findViewById<TextView>(R.id.register)
 
+        val sharedPreferences = getSharedPreferences("AUTH", Context.MODE_PRIVATE);
+
         button.setOnClickListener {
             if (login.text.toString().isEmpty()) {
-                login.hint = "This field must be filled"
+                login.hint = getString(R.string.hint)
                 login.setHintTextColor(Color.RED)
             }
 
             if (password.text.toString().isEmpty()) {
-                password.hint = "This field must be filled"
+                password.hint = getString(R.string.hint)
                 password.setHintTextColor(Color.RED)
             }
 
             if (!password.text.toString().isEmpty() && !login.text.toString().isEmpty()) {
-                val intent = Intent(this, MainActivity::class.java)
-                startActivity(intent)
+                if (password.text.toString().equals("12345") && login.text.toString().equals("admin")) {
+                    sharedPreferences.edit().putBoolean("Success", true).apply()
+                    val intent = Intent(this, MainActivity::class.java)
+                    startActivity(intent)
+                }
             }
         }
 

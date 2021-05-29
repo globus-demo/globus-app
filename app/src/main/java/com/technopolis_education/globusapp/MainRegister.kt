@@ -1,5 +1,6 @@
 package com.technopolis_education.globusapp
 
+import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
@@ -21,30 +22,32 @@ class MainRegister : AppCompatActivity() {
 
         val button = findViewById<Button>(R.id.confirm_register)
 
+        val sharedPreferences = getSharedPreferences("AUTH", Context.MODE_PRIVATE);
+
         button.setOnClickListener {
             if (nameAndSurname.text.toString().isEmpty()) {
-                nameAndSurname.hint = "This field must be filled"
+                nameAndSurname.hint = getString(R.string.hint)
                 nameAndSurname.setHintTextColor(Color.RED)
             }
 
             if (email.text.toString().isEmpty()) {
-                email.hint = "This field must be filled"
+                email.hint = getString(R.string.hint)
                 email.setHintTextColor(Color.RED)
             }
 
             if (password.text.toString().isEmpty()) {
-                password.hint = "This field must be filled"
+                password.hint = getString(R.string.hint)
                 password.setHintTextColor(Color.RED)
             }
 
             if (confirmPassword.text.toString().isEmpty()) {
-                confirmPassword.hint = "This field must be filled"
+                confirmPassword.hint = getString(R.string.hint)
                 confirmPassword.setHintTextColor(Color.RED)
             }
 
             if (!confirmPassword.text.toString().equals(password.text.toString())) {
                 val toast =
-                    Toast.makeText(applicationContext, "Password mismatch", Toast.LENGTH_SHORT)
+                    Toast.makeText(applicationContext, getString(R.string.password_missmatch), Toast.LENGTH_SHORT)
                 toast.show()
             }
 
@@ -53,6 +56,7 @@ class MainRegister : AppCompatActivity() {
                     .isEmpty() && !confirmPassword.text.toString()
                     .isEmpty() && confirmPassword.text.toString().equals(password.text.toString())
             ) {
+                sharedPreferences.edit().putBoolean("Success", true).apply()
                 val intent = Intent(this, MainActivity::class.java)
                 startActivity(intent)
             }

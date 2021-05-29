@@ -17,4 +17,7 @@
     <string name="profile_page">Profile</string>
     <string name="globe_page">Globe</string>
     <string name="search_messenger">All</string>
+    <string name="hint">This field must be filled</string>
+    <string name="password_missmatch">Password mismatch</string>
+    <string name="authorization">Authorization</string>
 </resources>
