@@ -86,4 +86,6 @@ class ProfileFragment : Fragment() {
         }
         return data
     }
+
+
 }
