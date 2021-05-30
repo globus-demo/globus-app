@@ -1,4 +1,4 @@
-package com.technopolis_education.globusapp.logic.adapter.posts
+package com.technopolis_education.globusapp.logic.adapter.feed
 
 import android.view.LayoutInflater
 import android.view.View

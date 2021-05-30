@@ -8,7 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.technopolis_education.globusapp.R
-import com.technopolis_education.globusapp.logic.adapter.posts.PostsRecyclerAdapter
+import com.technopolis_education.globusapp.logic.adapter.feed.PostsRecyclerAdapter
 import kotlinx.android.synthetic.main.feed_activity.view.*
 
 class FeedFragment : Fragment() {
