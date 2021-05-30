@@ -152,7 +152,7 @@
         android:layout_height="wrap_content"
         android:autofillHints=""
         android:ems="10"
-        android:inputType="textPersonName"
+        android:inputType="textCapWords"
         app:layout_constraintBottom_toTopOf="@+id/horizontal_30_reg"
         app:layout_constraintEnd_toStartOf="@+id/vertical_90_reg"
         app:layout_constraintHorizontal_bias="0.5"

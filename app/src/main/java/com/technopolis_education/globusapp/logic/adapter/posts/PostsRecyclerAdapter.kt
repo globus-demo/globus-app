@@ -1,4 +1,4 @@
-package com.technopolis_education.globusapp
+package com.technopolis_education.globusapp.logic.adapter.posts
 
 import android.view.LayoutInflater
 import android.view.View
@@ -6,11 +6,11 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.technopolis_education.globusapp.db.posts.Post
+import com.technopolis_education.globusapp.R
 
 class PostsRecyclerAdapter() : RecyclerView.Adapter<PostsRecyclerAdapter.PostViewHolder>() {
 
-    private var posts = emptyList<Post>()
+//    private var posts = emptyList<>()
 
     class PostViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var title: TextView? = null
@@ -32,15 +32,18 @@ class PostsRecyclerAdapter() : RecyclerView.Adapter<PostsRecyclerAdapter.PostVie
     }
 
     override fun onBindViewHolder(holder: PostViewHolder, position: Int) {
-        holder.title?.text = posts[position].title
-        holder.content?.text = posts[position].content
-        holder.creator?.setBackgroundResource(R.drawable.ic_launcher_background)
+//        holder.title?.text = posts[position].title
+//        holder.content?.text = posts[position].content
+//        holder.creator?.setBackgroundResource(R.drawable.ic_launcher_background)
     }
 
-    override fun getItemCount() = posts.size
-
-    fun setData(posts: List<Post>) {
-        this.posts = posts
-        notifyDataSetChanged()
+    override fun getItemCount(): Int {
+//        return posts.size
+        return 1
     }
+
+//    fun setData(posts: List<Post>) {
+//        this.posts = posts
+//        notifyDataSetChanged()
+//    }
 }

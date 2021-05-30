@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/feed"
-        android:name="com.technopolis_education.globusapp.FeedActivity"
+        android:name="com.technopolis_education.globusapp.ui.feed.FeedFragment"
         android:label="FeedActivity"
         tools:layout="@layout/feed_activity">
 
@@ -15,7 +15,7 @@
 
     <fragment
         android:id="@+id/messages"
-        android:name="com.technopolis_education.globusapp.MainMessenger"
+        android:name="com.technopolis_education.globusapp.ui.messenger.MessengerFragment"
         android:label="MainMessenger"
         tools:layout="@layout/messenger_main">
 
@@ -23,7 +23,7 @@
 
     <fragment
         android:id="@+id/profile"
-        android:name="com.technopolis_education.globusapp.ProfileActivity"
+        android:name="com.technopolis_education.globusapp.ui.profile.ProfileFragment"
         android:label="ProfileActivity"
         tools:layout="@layout/profile_page">
 
