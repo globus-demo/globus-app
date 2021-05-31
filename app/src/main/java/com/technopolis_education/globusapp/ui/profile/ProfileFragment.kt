@@ -8,10 +8,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.technopolis_education.globusapp.R
 import com.technopolis_education.globusapp.api.WebClient
+import com.technopolis_education.globusapp.databinding.FragmentProfileBinding
 import com.technopolis_education.globusapp.logic.adapter.profile.ProfileFriendsAdapter
 import com.technopolis_education.globusapp.model.RegResponse
 import com.technopolis_education.globusapp.model.UserInfo
@@ -23,27 +24,37 @@ import retrofit2.Response
 class ProfileFragment : Fragment() {
     private val webClient = WebClient().getApi()
 
+    private lateinit var profileViewModel: ProfileViewModel
+    private var _binding: FragmentProfileBinding? = null
+
+    // This property is only valid between onCreateView and
+    // onDestroyView.
+    private val binding get() = _binding!!
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        val view = inflater.inflate(R.layout.profile_page, container, false)
-        val recyclerView: RecyclerView? = view.findViewById(R.id.user_friends)
-        recyclerView?.layoutManager =
-            LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-        recyclerView?.adapter = ProfileFriendsAdapter(fillFriends())
+    ): View {
+        profileViewModel =
+            ViewModelProvider(this).get(ProfileViewModel::class.java)
 
-        val userNameSurname: TextView = view.findViewById(R.id.name_surname_field_profile)
-        val userEmail: TextView = view.findViewById(R.id.e_mail_field_profile)
+        _binding = FragmentProfileBinding.inflate(inflater, container, false)
+        val root: View = binding.root
+
+        val recyclerView: RecyclerView = binding.userFriends
+        recyclerView.layoutManager =
+            LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+        recyclerView.adapter = ProfileFriendsAdapter(fillFriends())
+
+        val userNameSurname: TextView = binding.nameSurnameFieldProfile
+        val userEmail: TextView = binding.eMailFieldProfile
 
         val userTokenSave = context?.getSharedPreferences("USER TOKEN", Context.MODE_PRIVATE)
         var userToken = ""
         if (userTokenSave?.contains("UserToken") == true) {
             userToken = userTokenSave.getString("UserToken", "").toString()
         }
-
-        Log.i("test", userToken)
 
         val getUser = RegResponse(
             userToken
@@ -62,12 +73,12 @@ class ProfileFragment : Fragment() {
             }
         })
 
-        return view
+        return root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
     private fun fillFriends(): ArrayList<UserInfoResponse> {
@@ -86,6 +97,4 @@ class ProfileFragment : Fragment() {
         }
         return data
     }
-
-
 }

@@ -20,4 +20,5 @@
     <string name="hint"><font size="10">Поле должно быть заполнено</font></string>
     <string name="password_missmatch">Пароли не совпадают</string>
     <string name="authorization">Авторизация</string>
+    <string name="action_logout">Выйти</string>
 </resources>

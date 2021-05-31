@@ -20,4 +20,5 @@
     <string name="hint">This field must be filled</string>
     <string name="password_missmatch">Password mismatch</string>
     <string name="authorization">Authorization</string>
+    <string name="action_logout">Logout</string>
 </resources>

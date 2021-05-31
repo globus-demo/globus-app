@@ -51,7 +51,7 @@
         android:autofillHints=""
         android:ems="10"
         android:hint="@string/enter_your_email"
-        android:inputType="textPersonName"
+        android:inputType="textEmailAddress"
         app:layout_constraintBottom_toTopOf="@+id/horizontal_50_auth"
         app:layout_constraintEnd_toStartOf="@+id/vertical_90_auth"
         app:layout_constraintHorizontal_bias="0.512"

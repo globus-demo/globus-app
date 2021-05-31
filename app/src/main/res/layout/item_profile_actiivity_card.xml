@@ -18,23 +18,20 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
-                android:textSize="25sp"
-                android:text="Title"/>
+                android:textSize="25sp" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
-                android:textSize="15sp"
-                android:text="author"/>
+                android:textSize="15sp" />
         </LinearLayout>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:textSize="20sp"
-            android:text="Context"/>
+            android:textSize="20sp" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -43,8 +40,7 @@
             android:layout_marginRight="10dp"
             android:layout_marginBottom="10dp"
             android:layout_gravity="end"
-            android:textSize="15sp"
-            android:text="Date"/>
+            android:textSize="15sp" />
 
     </LinearLayout>
 

@@ -23,7 +23,7 @@ class RegisterActivity : AppCompatActivity() {
     private val webClient = WebClient().getApi()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.register_main)
+        setContentView(R.layout.activity_register)
         title = "Registration"
 
         val nameAndSurname = findViewById<EditText>(R.id.name_surname_field)

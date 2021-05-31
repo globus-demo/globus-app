@@ -11,7 +11,7 @@ class ProfileFriendsAdapter(
 ): RecyclerView.Adapter<ProfileFriendsViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProfileFriendsViewHolder {
-        val itemView = LayoutInflater.from(parent.context).inflate(R.layout.friend_card, parent, false)
+        val itemView = LayoutInflater.from(parent.context).inflate(R.layout.item_friend_card, parent, false)
         return ProfileFriendsViewHolder(itemView)
     }
 
