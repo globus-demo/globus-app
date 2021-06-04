@@ -121,8 +121,10 @@ class RegisterActivity : AppCompatActivity() {
     private fun startFragment(userResponse: UserToken?) {
         val auth = getSharedPreferences("AUTH", Context.MODE_PRIVATE)
         val userToken = getSharedPreferences("USER TOKEN", Context.MODE_PRIVATE)
+        val userId = getSharedPreferences("USER ID", Context.MODE_PRIVATE)
         auth.edit().putBoolean("Success", true).apply()
         userToken.edit().putString("UserToken", userResponse?.objectToResponse?.token).apply()
+        userId.edit().putString("UserId", userResponse?.objectToResponse?.id).apply()
 
         val intent = Intent(this, MainActivity::class.java)
         startActivity(intent)
