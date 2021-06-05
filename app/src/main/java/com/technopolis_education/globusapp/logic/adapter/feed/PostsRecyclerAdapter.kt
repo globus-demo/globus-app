@@ -1,4 +1,4 @@
-package com.technopolis_education.globusapp.logic.adapter.posts
+package com.technopolis_education.globusapp.logic.adapter.feed
 
 import android.view.LayoutInflater
 import android.view.View
@@ -27,7 +27,7 @@ class PostsRecyclerAdapter() : RecyclerView.Adapter<PostsRecyclerAdapter.PostVie
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PostViewHolder {
         val itemView =
             LayoutInflater.from(parent.context)
-                .inflate(R.layout.feed_post, parent, false)
+                .inflate(R.layout.item_feed_post, parent, false)
         return PostViewHolder(itemView)
     }
 
@@ -41,9 +41,4 @@ class PostsRecyclerAdapter() : RecyclerView.Adapter<PostsRecyclerAdapter.PostVie
 //        return posts.size
         return 1
     }
-
-//    fun setData(posts: List<Post>) {
-//        this.posts = posts
-//        notifyDataSetChanged()
-//    }
 }

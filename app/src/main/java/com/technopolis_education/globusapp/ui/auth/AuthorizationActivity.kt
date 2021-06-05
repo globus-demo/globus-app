@@ -61,7 +61,7 @@ class AuthorizationActivity : AppCompatActivity() {
                                 "Successful authorization",
                                 Toast.LENGTH_SHORT
                             ).show()
-                            startFragment(response.body()?.objectToResponse?.token)
+                            startFragment(response.body())
                         } else {
                             Toast.makeText(
                                 applicationContext,
@@ -84,11 +84,13 @@ class AuthorizationActivity : AppCompatActivity() {
         }
     }
 
-    private fun startFragment(token: String?) {
+    private fun startFragment(userInfo: UserToken?) {
         val auth = getSharedPreferences("AUTH", Context.MODE_PRIVATE)
         val userToken = getSharedPreferences("USER TOKEN", Context.MODE_PRIVATE)
+        val userId = getSharedPreferences("USER ID", Context.MODE_PRIVATE)
+        userId.edit().putString("UserId", userInfo?.objectToResponse?.id).apply()
         auth.edit().putBoolean("Success", true).apply()
-        userToken.edit().putString("UserToken", token).apply()
+        userToken.edit().putString("UserToken", userInfo?.objectToResponse?.token).apply()
 
         val intent = Intent(this, MainActivity::class.java)
         startActivity(intent)

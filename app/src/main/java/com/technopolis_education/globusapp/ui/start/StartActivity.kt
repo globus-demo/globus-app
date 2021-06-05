@@ -11,7 +11,7 @@ import com.technopolis_education.globusapp.ui.auth.AuthorizationActivity
 class StartActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.start_page_main)
+        setContentView(R.layout.activity_start_page)
 
         val sharedPreferences = getSharedPreferences("AUTH", Context.MODE_PRIVATE)
 

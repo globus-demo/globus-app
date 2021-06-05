@@ -23,7 +23,7 @@ class RegisterActivity : AppCompatActivity() {
     private val webClient = WebClient().getApi()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.register_main)
+        setContentView(R.layout.activity_register)
         title = "Registration"
 
         val nameAndSurname = findViewById<EditText>(R.id.name_surname_field)
@@ -121,8 +121,10 @@ class RegisterActivity : AppCompatActivity() {
     private fun startFragment(userResponse: UserToken?) {
         val auth = getSharedPreferences("AUTH", Context.MODE_PRIVATE)
         val userToken = getSharedPreferences("USER TOKEN", Context.MODE_PRIVATE)
+        val userId = getSharedPreferences("USER ID", Context.MODE_PRIVATE)
         auth.edit().putBoolean("Success", true).apply()
         userToken.edit().putString("UserToken", userResponse?.objectToResponse?.token).apply()
+        userId.edit().putString("UserId", userResponse?.objectToResponse?.id).apply()
 
         val intent = Intent(this, MainActivity::class.java)
         startActivity(intent)

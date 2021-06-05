@@ -5,37 +5,42 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.technopolis_education.globusapp.R
-import com.technopolis_education.globusapp.logic.adapter.posts.PostsRecyclerAdapter
-import kotlinx.android.synthetic.main.feed_activity.view.*
+import com.technopolis_education.globusapp.databinding.FragmentFeedBinding
+import com.technopolis_education.globusapp.logic.adapter.feed.PostsRecyclerAdapter
 
 class FeedFragment : Fragment() {
 
-//    private lateinit var postViewModel: PostViewModel
+    private lateinit var galleryViewModel: FeedViewModel
+    private var _binding: FragmentFeedBinding? = null
+
+    // This property is only valid between onCreateView and
+    // onDestroyView.
+    private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val view = inflater.inflate(R.layout.feed_activity, container, false)
+        galleryViewModel =
+            ViewModelProvider(this).get(FeedViewModel::class.java)
+
+        _binding = FragmentFeedBinding.inflate(inflater, container, false)
+        val root: View = binding.root
 
         val adapter = PostsRecyclerAdapter()
-        val recyclerView: RecyclerView = view.feed_recycler_view
+        val recyclerView: RecyclerView = binding.feedRecyclerView
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(context)
 
-//        postViewModel = ViewModelProvider(this).get(PostViewModel::class.java)
-//        postViewModel.readAllData.observe(viewLifecycleOwner, Observer { posts ->
-//            adapter.setData(posts)
-//        })
-
-        return view
+        return root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }
