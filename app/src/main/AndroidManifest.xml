@@ -3,6 +3,8 @@
     package="com.technopolis_education.globusapp">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <application
         android:icon="@mipmap/ic_launcher"
@@ -11,6 +13,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.GlobusApp"
         android:usesCleartextTraffic="true">
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/google_maps_key" />
+
         <activity
             android:name=".ui.start.StartActivity"
             android:screenOrientation="portrait">
@@ -26,10 +33,11 @@
         <activity
             android:name=".ui.registration.RegisterActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".MainActivity"
+        <activity
+            android:name=".MainActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.GlobusApp.NoActionBar"/>
+            android:theme="@style/Theme.GlobusApp.NoActionBar" />
     </application>
 
 </manifest>

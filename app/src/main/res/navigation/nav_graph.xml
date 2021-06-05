@@ -40,6 +40,11 @@
             android:id="@+id/action_friendFragment_self"
             app:destination="@id/friendFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/globe"
+        android:name="com.technopolis_education.globusapp.ui.globus.GlobusFragment"
+        android:label="GlobusFragment"
+        tools:layout="@layout/fragment_globus"/>
 
 
 </navigation>
