@@ -21,4 +21,13 @@
     <string name="password_missmatch">Пароли не совпадают</string>
     <string name="authorization">Авторизация</string>
     <string name="action_logout">Выйти</string>
+    <string name="add_friend">Добавить друга</string>
+    <string name="find_friend">Найти друга</string>
+    <string name="edit_friend">Действия</string>
+    <string name="friend_photo">Фото друга</string>
+    <string name="friends">Друзья</string>
+    <string name="activity">Активность</string>
+    <string name="statistics">Статистика</string>
+    <string name="delete">Удалить</string>
+    <string name="profile_photo">Фото профиля</string>
 </resources>

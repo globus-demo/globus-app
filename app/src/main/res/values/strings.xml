@@ -21,4 +21,13 @@
     <string name="password_missmatch">Password mismatch</string>
     <string name="authorization">Authorization</string>
     <string name="action_logout">Logout</string>
+    <string name="add_friend">Add friend</string>
+    <string name="find_friend">Find friend</string>
+    <string name="edit_friend">Edit friend</string>
+    <string name="friend_photo">Friend photo</string>
+    <string name="friends">Friends</string>
+    <string name="activity">Activity</string>
+    <string name="statistics">Statistics</string>
+    <string name="delete">Delete</string>
+    <string name="profile_photo">Profile photo</string>
 </resources>

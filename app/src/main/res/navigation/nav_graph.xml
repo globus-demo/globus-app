@@ -27,6 +27,18 @@
         android:label="ProfileActivity"
         tools:layout="@layout/fragment_profile">
 
+        <action
+            android:id="@+id/action_profile_to_friendFragment"
+            app:destination="@id/friendFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/friendFragment"
+        android:name="com.technopolis_education.globusapp.ui.friend.FriendFragment"
+        android:label="FriendFragment"
+        tools:layout="@layout/fragment_friend">
+        <action
+            android:id="@+id/action_friendFragment_self"
+            app:destination="@id/friendFragment" />
     </fragment>
 
 

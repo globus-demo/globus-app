@@ -31,14 +31,13 @@
         </LinearLayout>
 
         <ImageView
-            android:id="@+id/edit_friend"
+            android:id="@+id/add_freind"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_gravity="center"
             android:layout_margin="10dp"
-            android:contentDescription="@string/edit_friend"
-            android:src="@drawable/ic_more" />
-
+            android:contentDescription="@string/add_friend"
+            android:src="@drawable/add" />
     </LinearLayout>
 
 </androidx.cardview.widget.CardView>
