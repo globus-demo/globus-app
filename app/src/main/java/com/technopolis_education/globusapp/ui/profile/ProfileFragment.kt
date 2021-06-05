@@ -102,10 +102,10 @@ class ProfileFragment : Fragment() {
                 ?.replace(R.id.profile_container, UserActivityFragment())
                 ?.commit()
         }
-        binding.showStatistic.setOnClickListener {
-            activity?.supportFragmentManager?.beginTransaction()
-                ?.replace(R.id.profile_container, UserStatisticsFragment())
-                ?.commit()
-        }
+//        binding.showStatistic.setOnClickListener {
+//            activity?.supportFragmentManager?.beginTransaction()
+//                ?.replace(R.id.profile_container, UserStatisticsFragment())
+//                ?.commit()
+//        }
     }
 }
