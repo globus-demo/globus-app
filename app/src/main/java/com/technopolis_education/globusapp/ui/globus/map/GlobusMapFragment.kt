@@ -100,40 +100,38 @@ class GlobusMapFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClic
 
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
+        val gcoder = Geocoder(context)
+        var markerOptions: MarkerOptions
 
-        // Fix
         mMap.setOnMapClickListener { latLngCurr ->
+            mMap.clear()
             if (marks) {
-                mMap.clear()
                 //Test
                 mMap.addMarker(MarkerOptions().position(PERTH).title("Perth"))
                 mMap.addMarker(MarkerOptions().position(SYDNEY).title("Sydney"))
-
-                val gcoder = Geocoder(context)
-                geocoder = gcoder.getFromLocation(latLngCurr.latitude, latLngCurr.longitude, 1)
-                val markerOptions: MarkerOptions = MarkerOptions().position(latLngCurr)
-                markerOptions.title(title)
-
-                mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLngCurr, 5F))
-                mMap.addMarker(markerOptions)
-            } else {
-                mMap.clear()
-                val gcoder = Geocoder(context)
-                geocoder = gcoder.getFromLocation(latLngCurr.latitude, latLngCurr.longitude, 1)
-                val markerOptions: MarkerOptions = MarkerOptions().position(latLngCurr)
-                markerOptions.title(title)
-
-                mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLngCurr, 13F))
-                mMap.addMarker(markerOptions)
             }
+            geocoder = gcoder.getFromLocation(latLngCurr.latitude, latLngCurr.longitude, 1)
+            markerOptions = MarkerOptions().position(latLngCurr)
+            markerOptions.title(title)
+
+            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLngCurr, 13F))
+            mMap.addMarker(markerOptions)
         }
 
         mMap.setOnMarkerClickListener(this)
     }
 
-    // Fix
     override fun onMarkerClick(marker: Marker): Boolean {
-        title = marker.title
+        title = if (geocoder.isEmpty()) {
+            marker.title
+        } else {
+            "New marker"
+        }
+        geocoder = Geocoder(context).getFromLocation(
+            marker.position.latitude,
+            marker.position.longitude,
+            1
+        )
         return false
     }
 }
