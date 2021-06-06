@@ -31,6 +31,7 @@ class ProfileUserActivityAdapter(
         holder.activityAuthor.text = userActivityList[position].author
         holder.activityTitle.text = userActivityList[position].title
         holder.activityContent.text = userActivityList[position].content
+        holder.activityCountry.text = userActivityList[position].country
         holder.activityDate.text = userActivityList[position].date
     }
 

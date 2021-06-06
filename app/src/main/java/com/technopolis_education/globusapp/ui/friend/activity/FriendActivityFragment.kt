@@ -77,6 +77,7 @@ class FriendActivityFragment : Fragment() {
                     "Title $i",
                     "Author $i",
                     "Content $i",
+                    "County $i",
                     "Date $i"
                 )
             )

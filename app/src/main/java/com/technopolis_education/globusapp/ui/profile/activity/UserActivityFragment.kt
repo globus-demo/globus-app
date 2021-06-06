@@ -78,6 +78,7 @@ class UserActivityFragment : Fragment() {
                     "Title $i",
                     "Author $i",
                     "Content $i",
+                    "Country $i",
                     "Date $i"
                 )
             )

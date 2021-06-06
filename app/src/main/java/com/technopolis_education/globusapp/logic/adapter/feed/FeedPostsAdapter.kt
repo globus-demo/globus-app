@@ -31,6 +31,7 @@ class FeedPostsAdapter(
         holder.title?.text = activityList[position].title
         holder.content?.text = activityList[position].content
         holder.creator?.text = activityList[position].author
+        holder.country?.text = activityList[position].country
         holder.date?.text = activityList[position].date
     }
 
