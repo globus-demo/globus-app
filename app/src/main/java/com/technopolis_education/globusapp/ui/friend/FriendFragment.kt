@@ -1,17 +1,21 @@
 package com.technopolis_education.globusapp.ui.friend
 
 import android.content.Context
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.technopolis_education.globusapp.R
 import com.technopolis_education.globusapp.api.WebClient
 import com.technopolis_education.globusapp.databinding.FragmentFriendBinding
+import com.technopolis_education.globusapp.logic.check.InternetConnectionCheck
 import com.technopolis_education.globusapp.model.FriendInfoResponse
 import com.technopolis_education.globusapp.model.FriendsInfo
 import com.technopolis_education.globusapp.model.OneEmailRequest
@@ -30,6 +34,7 @@ class FriendFragment : Fragment() {
     // onDestroyView.
     private val binding get() = _binding!!
 
+    @RequiresApi(Build.VERSION_CODES.M)
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -62,38 +67,52 @@ class FriendFragment : Fragment() {
             friendEmailText
         )
 
-        val callFriend = webClient.friendInfo(emailRequest)
-        callFriend.enqueue(object : Callback<FriendInfoResponse> {
-            override fun onResponse(
-                call: Call<FriendInfoResponse>,
-                response: Response<FriendInfoResponse>
-            ) {
-                val friendInfo = response.body()?.objectToResponse
+        if (!InternetConnectionCheck().isOnline(context)) {
+            Toast.makeText(
+                context,
+                getString(R.string.error_no_internet_connection),
+                Toast.LENGTH_LONG
+            ).show()
 
-                friendNameSurname.text = "${friendInfo?.name} ${friendInfo?.surname}"
-                friendEmail.text = friendInfo?.email
-            }
+            friendNameSurname.text = "Friend Name"
+            friendEmail.text = "Friend email"
+            friendFriendsCount.text = "Friend friends"
+            friendActivityCount.text = "Friend activity"
 
-            override fun onFailure(call: Call<FriendInfoResponse>, t: Throwable) {
-                Log.i("test", "error $t")
-            }
-        })
+        } else {
+            val callFriend = webClient.friendInfo(emailRequest)
+            callFriend.enqueue(object : Callback<FriendInfoResponse> {
+                override fun onResponse(
+                    call: Call<FriendInfoResponse>,
+                    response: Response<FriendInfoResponse>
+                ) {
+                    val friendInfo = response.body()?.objectToResponse
 
-        val callFollowersFromMe = webClient.followersFromMe(emailRequest)
-        callFollowersFromMe.enqueue(object : Callback<ArrayList<FriendsInfo>> {
-            override fun onResponse(
-                call: Call<ArrayList<FriendsInfo>>,
-                response: Response<ArrayList<FriendsInfo>>
-            ) {
-                friendFriendsCount.text = "Friends: ${response.body()?.size.toString()}"
-            }
+                    friendNameSurname.text = "${friendInfo?.name} ${friendInfo?.surname}"
+                    friendEmail.text = friendInfo?.email
+                }
 
-            override fun onFailure(call: Call<ArrayList<FriendsInfo>>, t: Throwable) {
-                Log.i("test", "error $t")
-            }
-        })
+                override fun onFailure(call: Call<FriendInfoResponse>, t: Throwable) {
+                    Log.i("test", "error $t")
+                }
+            })
 
-        friendActivityCount.text = "Activity: "
+            val callFollowersFromMe = webClient.followersFromMe(emailRequest)
+            callFollowersFromMe.enqueue(object : Callback<ArrayList<FriendsInfo>> {
+                override fun onResponse(
+                    call: Call<ArrayList<FriendsInfo>>,
+                    response: Response<ArrayList<FriendsInfo>>
+                ) {
+                    friendFriendsCount.text = "Friends: ${response.body()?.size.toString()}"
+                }
+
+                override fun onFailure(call: Call<ArrayList<FriendsInfo>>, t: Throwable) {
+                    Log.i("test", "error $t")
+                }
+            })
+
+            friendActivityCount.text = "Activity: "
+        }
 
         //------------------------------------------------------//
 
@@ -109,16 +128,26 @@ class FriendFragment : Fragment() {
         _binding = null
     }
 
+    @RequiresApi(Build.VERSION_CODES.M)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        binding.friendsCountFriend.setOnClickListener {
-            activity?.supportFragmentManager?.beginTransaction()
-                ?.replace(R.id.friend_container, FriendFriendsFragment())
-                ?.commit()
-        }
-        binding.activityCountFriend.setOnClickListener {
-            activity?.supportFragmentManager?.beginTransaction()
-                ?.replace(R.id.friend_container, FriendActivityFragment())
-                ?.commit()
+        if (!InternetConnectionCheck().isOnline(context)) {
+            Toast.makeText(
+                context,
+                getString(R.string.error_no_internet_connection),
+                Toast.LENGTH_LONG
+            ).show()
+
+        } else {
+            binding.friendsCountFriend.setOnClickListener {
+                activity?.supportFragmentManager?.beginTransaction()
+                    ?.replace(R.id.friend_container, FriendFriendsFragment())
+                    ?.commit()
+            }
+            binding.activityCountFriend.setOnClickListener {
+                activity?.supportFragmentManager?.beginTransaction()
+                    ?.replace(R.id.friend_container, FriendActivityFragment())
+                    ?.commit()
+            }
         }
     }
 }

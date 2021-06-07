@@ -36,4 +36,13 @@
     <string name="enable_marks">Маркеры</string>
     <string name="retry">Повторить</string>
     <string name="error_no_internet_connection">Ошибка: Нет подключения к интернету</string>
+    <string name="select_an_action">Выберите действие:</string>
+    <string name="delete_marker">Удалить маркер</string>
+    <string name="no_internet_connection_nplease_check_your_connection_nand_refresh_the_page">Нет подключения к интернету. Пожалуйста, проверьте подключения и обновите страницу</string>
+    <string name="select_marker">Выбрать маркер</string>
+    <string name="new_marker_added">Новый маркер добавлен</string>
+    <string name="successful_authorization">Успешная авторизация</string>
+    <string name="incorrect_email_or_password">Неправильный email или пароль</string>
+    <string name="invalid_email">Некорректный email</string>
+    <string name="invalid_username">Некорректное имя пользователя</string>
 </resources>

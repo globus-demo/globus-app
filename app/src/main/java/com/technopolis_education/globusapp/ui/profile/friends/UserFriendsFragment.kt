@@ -2,6 +2,7 @@ package com.technopolis_education.globusapp.ui.profile.friends
 
 import android.app.AlertDialog
 import android.content.Context
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -9,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.SearchView
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -19,7 +21,9 @@ import com.technopolis_education.globusapp.api.WebClient
 import com.technopolis_education.globusapp.databinding.FragmentProfileUserFriendsAddFriendBinding
 import com.technopolis_education.globusapp.databinding.FragmentProfileUserFriendsBinding
 import com.technopolis_education.globusapp.logic.adapter.empty.profile.friends.EmptyProfileFriendsAdapter
+import com.technopolis_education.globusapp.logic.adapter.error.InternetErrorAdapter
 import com.technopolis_education.globusapp.logic.adapter.profile.ProfileUserFriendsAdapter
+import com.technopolis_education.globusapp.logic.check.InternetConnectionCheck
 import com.technopolis_education.globusapp.logic.interfaces.profile.OnFriendClickListener
 import com.technopolis_education.globusapp.model.FriendsInfo
 import com.technopolis_education.globusapp.model.OneEmailRequest
@@ -43,6 +47,7 @@ class UserFriendsFragment : Fragment(), OnFriendClickListener {
     // onDestroyView.
     private val binding get() = _binding!!
 
+    @RequiresApi(Build.VERSION_CODES.M)
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -79,58 +84,90 @@ class UserFriendsFragment : Fragment(), OnFriendClickListener {
         //------------------------------------------------------//
         // Add friend
         val addFriendBtn = binding.addFriend
-        addFriendBtn.setOnClickListener { addFriend(userEmail, emailRequest, userFriends) }
+        addFriendBtn.setOnClickListener {
+            if (!InternetConnectionCheck().isOnline(context)) {
+                Toast.makeText(
+                    context,
+                    getString(R.string.error_no_internet_connection),
+                    Toast.LENGTH_LONG
+                ).show()
+            } else {
+                addFriend(userEmail, emailRequest, userFriends)
+            }
+        }
         //------------------------------------------------------//
 
         return root
     }
 
+    @RequiresApi(Build.VERSION_CODES.M)
     private fun showUserFriends(
         oneEmailRequest: OneEmailRequest,
         userFriends: RecyclerView
     ) {
-        userFriendsList.clear()
-        val callFollowersFromMe = webClient.followersFromMe(oneEmailRequest)
-        callFollowersFromMe.enqueue(object : Callback<ArrayList<FriendsInfo>> {
-            override fun onResponse(
-                call: Call<ArrayList<FriendsInfo>>,
-                response: Response<ArrayList<FriendsInfo>>
-            ) {
-                for (i in 0 until response.body()!!.size) {
-                    val userGroup = response.body()!![i]
-                    userFriendsList.add(userGroup)
+        if (!InternetConnectionCheck().isOnline(context)) {
+            Toast.makeText(
+                context,
+                getString(R.string.error_no_internet_connection),
+                Toast.LENGTH_LONG
+            ).show()
+            printFriends(userFriends, userFriendsList)
+        } else {
+            userFriendsList.clear()
+            val callFollowersFromMe = webClient.followersFromMe(oneEmailRequest)
+            callFollowersFromMe.enqueue(object : Callback<ArrayList<FriendsInfo>> {
+                override fun onResponse(
+                    call: Call<ArrayList<FriendsInfo>>,
+                    response: Response<ArrayList<FriendsInfo>>
+                ) {
+                    for (i in 0 until response.body()!!.size) {
+                        val userGroup = response.body()!![i]
+                        userFriendsList.add(userGroup)
+                    }
+                    printFriends(userFriends, userFriendsList)
                 }
-                printFriends(userFriends, userFriendsList)
-            }
 
-            override fun onFailure(call: Call<ArrayList<FriendsInfo>>, t: Throwable) {
-                Log.i("test", "error $t")
-            }
-        })
+                override fun onFailure(call: Call<ArrayList<FriendsInfo>>, t: Throwable) {
+                    Log.i("test", "error $t")
+                }
+            })
+        }
     }
 
+    @RequiresApi(Build.VERSION_CODES.M)
     private fun printFriends(userFriends: RecyclerView, userFriendsList: ArrayList<FriendsInfo>) {
         userFriends.layoutManager =
             LinearLayoutManager(context)
-        if (userFriendsList.isEmpty()) {
-            userFriends.adapter = EmptyProfileFriendsAdapter()
+        if (!InternetConnectionCheck().isOnline(context)) {
+            Toast.makeText(
+                context,
+                getString(R.string.error_no_internet_connection),
+                Toast.LENGTH_LONG
+            ).show()
+
+            userFriends.adapter = InternetErrorAdapter()
         } else {
-            userFriends.adapter = ProfileUserFriendsAdapter(context, userFriendsList, this)
+            if (userFriendsList.isEmpty()) {
+                userFriends.adapter = EmptyProfileFriendsAdapter()
+            } else {
+                userFriends.adapter = ProfileUserFriendsAdapter(context, userFriendsList, this)
 
-            adapter = ProfileUserFriendsAdapter(context, userFriendsList, this)
-            binding.friendsSearch.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-                override fun onQueryTextSubmit(newFriend: String?): Boolean {
-                    binding.friendsSearch.clearFocus()
-                    return false
-                }
+                adapter = ProfileUserFriendsAdapter(context, userFriendsList, this)
+                binding.friendsSearch.setOnQueryTextListener(object :
+                    SearchView.OnQueryTextListener {
+                    override fun onQueryTextSubmit(newFriend: String?): Boolean {
+                        binding.friendsSearch.clearFocus()
+                        return false
+                    }
 
-                override fun onQueryTextChange(newFriend: String?): Boolean {
-                    adapter.filter.filter(newFriend)
-                    return false
-                }
-            })
+                    override fun onQueryTextChange(newFriend: String?): Boolean {
+                        adapter.filter.filter(newFriend)
+                        return false
+                    }
+                })
 
-            userFriends.adapter = adapter
+                userFriends.adapter = adapter
+            }
         }
     }
 
@@ -140,6 +177,7 @@ class UserFriendsFragment : Fragment(), OnFriendClickListener {
     }
 
     // Find and add a friend
+    @RequiresApi(Build.VERSION_CODES.M)
     private fun addFriend(
         userEmail: String,
         oneEmailRequest: OneEmailRequest,
@@ -154,36 +192,47 @@ class UserFriendsFragment : Fragment(), OnFriendClickListener {
         addDialog.setView(addNewFriend.root)
 
         submitBtn.setOnClickListener {
-            if (friendEmail.text.isEmpty()) {
-                Toast.makeText(context, "Enter friend email", Toast.LENGTH_SHORT)
-                    .show()
+            if (!InternetConnectionCheck().isOnline(context)) {
+                Toast.makeText(
+                    context,
+                    getString(R.string.error_no_internet_connection),
+                    Toast.LENGTH_LONG
+                ).show()
             } else {
+                if (friendEmail.text.isEmpty()) {
+                    Toast.makeText(context, "Enter friend email", Toast.LENGTH_SHORT)
+                        .show()
+                } else {
 
-                followReq = TwoEmailRequest(
-                    userEmail,
-                    friendEmail.text.toString()
-                )
+                    followReq = TwoEmailRequest(
+                        userEmail,
+                        friendEmail.text.toString()
+                    )
 
-                val callFollow = webClient.follow(followReq)
+                    val callFollow = webClient.follow(followReq)
 
-                callFollow.enqueue(object : Callback<UserToken> {
-                    override fun onResponse(call: Call<UserToken>, response: Response<UserToken>) {
-                        if (response.body()!!.status) {
-                            showUserFriends(oneEmailRequest, userFriends)
-                            Toast.makeText(context, "Friend request send", Toast.LENGTH_SHORT)
-                                .show()
-                        } else {
-                            Toast.makeText(context, response.body()!!.text, Toast.LENGTH_SHORT)
-                                .show()
+                    callFollow.enqueue(object : Callback<UserToken> {
+                        @RequiresApi(Build.VERSION_CODES.M)
+                        override fun onResponse(
+                            call: Call<UserToken>,
+                            response: Response<UserToken>
+                        ) {
+                            if (response.body()!!.status) {
+                                showUserFriends(oneEmailRequest, userFriends)
+                                Toast.makeText(context, "Friend request send", Toast.LENGTH_SHORT)
+                                    .show()
+                            } else {
+                                Toast.makeText(context, response.body()!!.text, Toast.LENGTH_SHORT)
+                                    .show()
+                            }
+
                         }
 
-                    }
-
-                    override fun onFailure(call: Call<UserToken>, t: Throwable) {
-                        Log.i("test", "error $t")
-                    }
-                })
-
+                        override fun onFailure(call: Call<UserToken>, t: Throwable) {
+                            Log.i("test", "error $t")
+                        }
+                    })
+                }
             }
         }
 

@@ -3,16 +3,19 @@ package com.technopolis_education.globusapp.ui.auth
 import android.content.Context
 import android.content.Intent
 import android.graphics.Color
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import com.technopolis_education.globusapp.MainActivity
 import com.technopolis_education.globusapp.R
 import com.technopolis_education.globusapp.api.WebClient
+import com.technopolis_education.globusapp.logic.check.InternetConnectionCheck
 import com.technopolis_education.globusapp.model.UserAuthRequest
 import com.technopolis_education.globusapp.model.UserToken
 import com.technopolis_education.globusapp.ui.registration.RegisterActivity
@@ -24,7 +27,7 @@ class AuthorizationActivity : AppCompatActivity() {
 
     private val webClient = WebClient().getApi()
 
-    //    @RequiresApi(Build.VERSION_CODES.M)
+    @RequiresApi(Build.VERSION_CODES.M)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.authorization_main)
@@ -36,53 +39,58 @@ class AuthorizationActivity : AppCompatActivity() {
         val register = findViewById<TextView>(R.id.register)
 
         button.setOnClickListener {
-//            if (!isOnline(this)) {
-//                val intent = Intent(this, ErrorActivity::class.java)
-//                val lastScreen = getSharedPreferences("LAST", Context.MODE_PRIVATE)
-//                lastScreen.edit().putString("LastActivity", "AuthorizationActivity").apply()
-//                startActivity(intent)
-//            }
+            if (!InternetConnectionCheck().isOnline(this)) {
+                Toast.makeText(
+                    applicationContext,
+                    getString(R.string.error_no_internet_connection),
+                    Toast.LENGTH_LONG
+                ).show()
+            } else {
 
-            if (login.text.toString().isEmpty()) {
-                login.hint = getString(R.string.hint)
-                login.setHintTextColor(Color.RED)
-            }
+                if (login.text.toString().isEmpty()) {
+                    login.hint = getString(R.string.hint)
+                    login.setHintTextColor(Color.RED)
+                }
 
-            if (password.text.toString().isEmpty()) {
-                password.hint = getString(R.string.hint)
-                password.setHintTextColor(Color.RED)
-            }
+                if (password.text.toString().isEmpty()) {
+                    password.hint = getString(R.string.hint)
+                    password.setHintTextColor(Color.RED)
+                }
 
-            if (password.text.toString().isNotEmpty() && login.text.toString().isNotEmpty()) {
+                if (password.text.toString().isNotEmpty() && login.text.toString().isNotEmpty()) {
 
-                val userAuth = UserAuthRequest(
-                    login.text.toString(),
-                    password.text.toString()
-                )
+                    val userAuth = UserAuthRequest(
+                        login.text.toString(),
+                        password.text.toString()
+                    )
 
-                val callAuth = webClient.auth(userAuth)
-                callAuth.enqueue(object : Callback<UserToken> {
-                    override fun onResponse(call: Call<UserToken>, response: Response<UserToken>) {
-                        if (response.body()?.status == true) {
-                            Toast.makeText(
-                                applicationContext,
-                                "Successful authorization",
-                                Toast.LENGTH_SHORT
-                            ).show()
-                            startFragment(response.body())
-                        } else {
-                            Toast.makeText(
-                                applicationContext,
-                                "Incorrect email or password",
-                                Toast.LENGTH_SHORT
-                            ).show()
+                    val callAuth = webClient.auth(userAuth)
+                    callAuth.enqueue(object : Callback<UserToken> {
+                        override fun onResponse(
+                            call: Call<UserToken>,
+                            response: Response<UserToken>
+                        ) {
+                            if (response.body()?.status == true) {
+                                Toast.makeText(
+                                    applicationContext,
+                                    getString(R.string.successful_authorization),
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                                startFragment(response.body())
+                            } else {
+                                Toast.makeText(
+                                    applicationContext,
+                                    getString(R.string.incorrect_email_or_password),
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                            }
                         }
-                    }
 
-                    override fun onFailure(call: Call<UserToken>, t: Throwable) {
-                        Log.i("test", "error $t")
-                    }
-                })
+                        override fun onFailure(call: Call<UserToken>, t: Throwable) {
+                            Log.i("test", "error $t")
+                        }
+                    })
+                }
             }
         }
 
@@ -103,14 +111,4 @@ class AuthorizationActivity : AppCompatActivity() {
         val intent = Intent(this, MainActivity::class.java)
         startActivity(intent)
     }
-//
-//    @RequiresApi(Build.VERSION_CODES.M)
-//    fun isOnline(context: Context): Boolean =
-//        (context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager).run {
-//            getNetworkCapabilities(activeNetwork)?.run {
-//                hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR)
-//                        || hasTransport(NetworkCapabilities.TRANSPORT_WIFI)
-//                        || hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET)
-//            } ?: false
-//        }
 }

@@ -5,27 +5,14 @@
     android:layout_height="match_parent"
     android:background="@color/page_background">
 
-    <ImageView
-        android:id="@+id/friend_photo"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:layout_margin="20dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_baseline_account_circle_24"
-        android:contentDescription="@string/friend_photo" />
-
     <TextView
         android:id="@+id/name_surname_field_friend"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="10dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="20dp"
+        android:layout_margin="20dp"
         android:textSize="35sp"
-        app:layout_constraintBottom_toBottomOf="@+id/friend_photo"
-        app:layout_constraintStart_toEndOf="@+id/friend_photo"
-        app:layout_constraintTop_toTopOf="@+id/friend_photo" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/e_mail_field_friend"
@@ -45,7 +32,7 @@
         android:background="#989898"
         app:layout_constraintBottom_toTopOf="@+id/friends_count_friend"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/friend_photo" />
+        app:layout_constraintTop_toBottomOf="@+id/name_surname_field_friend" />
 
     <TextView
         android:id="@+id/friends_count_friend"
@@ -55,7 +42,7 @@
         android:textColor="#00008B"
         android:textSize="25sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/friend_photo" />
+        app:layout_constraintTop_toBottomOf="@+id/name_surname_field_friend" />
 
     <TextView
         android:id="@+id/activity_count_friend"

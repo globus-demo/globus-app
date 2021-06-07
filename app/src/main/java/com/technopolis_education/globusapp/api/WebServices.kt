@@ -1,12 +1,14 @@
 package com.technopolis_education.globusapp.api
 
 import com.technopolis_education.globusapp.model.FriendInfoResponse
-import com.technopolis_education.globusapp.model.OneEmailRequest
-import com.technopolis_education.globusapp.model.TwoEmailRequest
-import com.technopolis_education.globusapp.model.RegResponse
-import com.technopolis_education.globusapp.model.UserAuthRequest
 import com.technopolis_education.globusapp.model.FriendsInfo
+import com.technopolis_education.globusapp.model.OneEmailRequest
+import com.technopolis_education.globusapp.model.PointRequest
+import com.technopolis_education.globusapp.model.RegResponse
+import com.technopolis_education.globusapp.model.TwoEmailRequest
+import com.technopolis_education.globusapp.model.UserAuthRequest
 import com.technopolis_education.globusapp.model.UserInfo
+import com.technopolis_education.globusapp.model.UserPoints
 import com.technopolis_education.globusapp.model.UserRegistrationRequest
 import com.technopolis_education.globusapp.model.UserToken
 import retrofit2.Call
@@ -55,4 +57,22 @@ interface WebServices {
     fun friendInfo(
         @Body body: OneEmailRequest
     ): Call<FriendInfoResponse>
+
+    // Добавление метки
+    @POST("/addpoint")
+    fun addPoint(
+        @Body body: PointRequest
+    ): Call<UserToken>
+
+    // Удаление метки
+    @POST("/deletepoint")
+    fun deletePoint(
+        @Body body: PointRequest
+    ): Call<UserToken>
+
+    // Получение меток пользователя
+    @POST("/getpoints")
+    fun getPoints(
+        @Body body: OneEmailRequest
+    ): Call<ArrayList<UserPoints>>
 }

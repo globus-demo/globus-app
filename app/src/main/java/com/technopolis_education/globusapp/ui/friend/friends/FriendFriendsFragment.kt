@@ -1,12 +1,15 @@
 package com.technopolis_education.globusapp.ui.friend.friends
 
 import android.content.Context
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.SearchView
+import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -16,7 +19,9 @@ import com.technopolis_education.globusapp.R
 import com.technopolis_education.globusapp.api.WebClient
 import com.technopolis_education.globusapp.databinding.FragmentFriendFriendsBinding
 import com.technopolis_education.globusapp.logic.adapter.empty.friends.friends.EmptyFriendFriendsAdapter
+import com.technopolis_education.globusapp.logic.adapter.error.InternetErrorAdapter
 import com.technopolis_education.globusapp.logic.adapter.profile.friends.FriendFriendsAdapter
+import com.technopolis_education.globusapp.logic.check.InternetConnectionCheck
 import com.technopolis_education.globusapp.logic.interfaces.profile.OnFriendClickListener
 import com.technopolis_education.globusapp.model.FriendsInfo
 import com.technopolis_education.globusapp.model.OneEmailRequest
@@ -36,6 +41,7 @@ class FriendFriendsFragment : Fragment(), OnFriendClickListener {
     // onDestroyView.
     private val binding get() = _binding!!
 
+    @RequiresApi(Build.VERSION_CODES.M)
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -66,50 +72,70 @@ class FriendFriendsFragment : Fragment(), OnFriendClickListener {
             friendEmailText
         )
 
-        val callFollowersFromMe = webClient.followersFromMe(emailRequest)
-        callFollowersFromMe.enqueue(object : Callback<ArrayList<FriendsInfo>> {
-            override fun onResponse(
-                call: Call<ArrayList<FriendsInfo>>,
-                response: Response<ArrayList<FriendsInfo>>
-            ) {
-                for (i in 0 until response.body()!!.size) {
-                    val userGroup = response.body()!![i]
-                    friendFriendsList.add(userGroup)
+        if (!InternetConnectionCheck().isOnline(context)) {
+            Toast.makeText(
+                context,
+                getString(R.string.error_no_internet_connection),
+                Toast.LENGTH_LONG
+            ).show()
+        } else {
+            val callFollowersFromMe = webClient.followersFromMe(emailRequest)
+            callFollowersFromMe.enqueue(object : Callback<ArrayList<FriendsInfo>> {
+                override fun onResponse(
+                    call: Call<ArrayList<FriendsInfo>>,
+                    response: Response<ArrayList<FriendsInfo>>
+                ) {
+                    for (i in 0 until response.body()!!.size) {
+                        val userGroup = response.body()!![i]
+                        friendFriendsList.add(userGroup)
+                    }
+                    printFriends(friendFriends, friendFriendsList)
                 }
-                printFriends(friendFriends, friendFriendsList)
-            }
 
-            override fun onFailure(call: Call<ArrayList<FriendsInfo>>, t: Throwable) {
-                Log.i("test", "error $t")
-            }
-        })
+                override fun onFailure(call: Call<ArrayList<FriendsInfo>>, t: Throwable) {
+                    Log.i("test", "error $t")
+                }
+            })
+        }
         //------------------------------------------------------//
 
         return root
     }
 
+    @RequiresApi(Build.VERSION_CODES.M)
     private fun printFriends(friendFriends: RecyclerView, userFriendsList: ArrayList<FriendsInfo>) {
         friendFriends.layoutManager =
             LinearLayoutManager(context)
-        if (userFriendsList.isEmpty()) {
-            friendFriends.adapter = EmptyFriendFriendsAdapter()
+        if (!InternetConnectionCheck().isOnline(context)) {
+            Toast.makeText(
+                context,
+                getString(R.string.error_no_internet_connection),
+                Toast.LENGTH_LONG
+            ).show()
+
+            friendFriends.adapter = InternetErrorAdapter()
         } else {
-            friendFriends.adapter = FriendFriendsAdapter(friendFriendsList, this)
+            if (userFriendsList.isEmpty()) {
+                friendFriends.adapter = EmptyFriendFriendsAdapter()
+            } else {
+                friendFriends.adapter = FriendFriendsAdapter(friendFriendsList, this)
 
-            val adapter = FriendFriendsAdapter(friendFriendsList, this)
-            binding.friendsSearch.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-                override fun onQueryTextSubmit(newFriend: String?): Boolean {
-                    binding.friendsSearch.clearFocus()
-                    return false
-                }
+                val adapter = FriendFriendsAdapter(friendFriendsList, this)
+                binding.friendsSearch.setOnQueryTextListener(object :
+                    SearchView.OnQueryTextListener {
+                    override fun onQueryTextSubmit(newFriend: String?): Boolean {
+                        binding.friendsSearch.clearFocus()
+                        return false
+                    }
 
-                override fun onQueryTextChange(newFriend: String?): Boolean {
-                    adapter.filter.filter(newFriend)
-                    return false
-                }
-            })
+                    override fun onQueryTextChange(newFriend: String?): Boolean {
+                        adapter.filter.filter(newFriend)
+                        return false
+                    }
+                })
 
-            friendFriends.adapter = adapter
+                friendFriends.adapter = adapter
+            }
         }
     }
 
@@ -118,11 +144,20 @@ class FriendFriendsFragment : Fragment(), OnFriendClickListener {
         _binding = null
     }
 
+    @RequiresApi(Build.VERSION_CODES.M)
     override fun onFriendItemClick(item: FriendsInfo, position: Int) {
-        val friendEmailSP = context?.getSharedPreferences("FRIEND EMAIL", Context.MODE_PRIVATE)
-        friendEmailSP?.edit()
-            ?.putString("FriendEmail", item.email)
-            ?.apply()
-        findNavController().navigate(R.id.action_friendFragment_self)
+        if (!InternetConnectionCheck().isOnline(context)) {
+            Toast.makeText(
+                context,
+                getString(R.string.error_no_internet_connection),
+                Toast.LENGTH_LONG
+            ).show()
+        } else {
+            val friendEmailSP = context?.getSharedPreferences("FRIEND EMAIL", Context.MODE_PRIVATE)
+            friendEmailSP?.edit()
+                ?.putString("FriendEmail", item.email)
+                ?.apply()
+            findNavController().navigate(R.id.action_friendFragment_self)
+        }
     }
 }
