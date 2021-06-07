@@ -30,4 +30,10 @@
     <string name="statistics">Statistics</string>
     <string name="delete">Delete</string>
     <string name="profile_photo">Profile photo</string>
+    <string name="you_don_t_have_any_friends_yet_you_can_find_them_by_clicking_on_the_button_above">You don\'t have any friends yet. \nYou can find them by clicking on the button above</string>
+    <string name="the_user_has_no_subscriptions_yet">The user has no subscriptions yet.</string>
+    <string name="submit">Submit</string>
+    <string name="enable_marks">Enable marks</string>
+    <string name="retry">Retry</string>
+    <string name="error_no_internet_connection">Error: No Internet connection</string>
 </resources>

@@ -24,6 +24,7 @@ class AuthorizationActivity : AppCompatActivity() {
 
     private val webClient = WebClient().getApi()
 
+    //    @RequiresApi(Build.VERSION_CODES.M)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.authorization_main)
@@ -35,6 +36,13 @@ class AuthorizationActivity : AppCompatActivity() {
         val register = findViewById<TextView>(R.id.register)
 
         button.setOnClickListener {
+//            if (!isOnline(this)) {
+//                val intent = Intent(this, ErrorActivity::class.java)
+//                val lastScreen = getSharedPreferences("LAST", Context.MODE_PRIVATE)
+//                lastScreen.edit().putString("LastActivity", "AuthorizationActivity").apply()
+//                startActivity(intent)
+//            }
+
             if (login.text.toString().isEmpty()) {
                 login.hint = getString(R.string.hint)
                 login.setHintTextColor(Color.RED)
@@ -95,4 +103,14 @@ class AuthorizationActivity : AppCompatActivity() {
         val intent = Intent(this, MainActivity::class.java)
         startActivity(intent)
     }
+//
+//    @RequiresApi(Build.VERSION_CODES.M)
+//    fun isOnline(context: Context): Boolean =
+//        (context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager).run {
+//            getNetworkCapabilities(activeNetwork)?.run {
+//                hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR)
+//                        || hasTransport(NetworkCapabilities.TRANSPORT_WIFI)
+//                        || hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET)
+//            } ?: false
+//        }
 }

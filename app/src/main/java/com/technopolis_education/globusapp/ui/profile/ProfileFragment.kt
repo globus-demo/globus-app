@@ -16,7 +16,6 @@ import com.technopolis_education.globusapp.model.RegResponse
 import com.technopolis_education.globusapp.model.UserInfo
 import com.technopolis_education.globusapp.ui.profile.activity.UserActivityFragment
 import com.technopolis_education.globusapp.ui.profile.friends.UserFriendsFragment
-import com.technopolis_education.globusapp.ui.profile.statistics.UserStatisticsFragment
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -54,23 +53,26 @@ class ProfileFragment : Fragment() {
         if (userTokenSave?.contains("UserToken") == true) {
             userToken = userTokenSave.getString("UserToken", "").toString()
         }
-        if (userIdSave?.contains("UserId") == true){
+        if (userIdSave?.contains("UserId") == true) {
             userId = userIdSave.getString("UserId", "").toString()
         }
+        val userEmailSP = context?.getSharedPreferences("USER EMAIL", Context.MODE_PRIVATE)
 
         val getUser = RegResponse(
             userId,
             userToken
         )
 
-        Log.i("test", getUser.toString())
-
         val callUser = webClient.userInfo(getUser)
         callUser.enqueue(object : Callback<UserInfo> {
             override fun onResponse(call: Call<UserInfo>, response: Response<UserInfo>) {
                 userNameSurname.text =
-                    response.body()?.objectToResponse?.name + " " + response.body()?.objectToResponse?.surname
+                    "${response.body()?.objectToResponse?.name} ${response.body()?.objectToResponse?.surname}"
                 userEmail.text = response.body()?.objectToResponse?.email
+                Log.i("lol", response.body()?.objectToResponse?.email.toString())
+                userEmailSP?.edit()
+                    ?.putString("UserEmail", response.body()?.objectToResponse?.email.toString())
+                    ?.apply()
             }
 
             override fun onFailure(call: Call<UserInfo>, t: Throwable) {

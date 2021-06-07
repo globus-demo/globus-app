@@ -38,6 +38,9 @@
             android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.GlobusApp.NoActionBar" />
+        <activity
+            android:name=".ui.error.ErrorActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

@@ -5,11 +5,11 @@
         android:enabled="true"
         android:title="@string/feed_page"
         android:icon="@drawable/ic_baseline_ballot_24"/>
-    <item
-        android:id="@+id/messages"
-        android:enabled="true"
-        android:title="@string/messages_page"
-        android:icon="@drawable/ic_baseline_mode_comment_24"/>
+<!--    <item-->
+<!--        android:id="@+id/messages"-->
+<!--        android:enabled="true"-->
+<!--        android:title="@string/messages_page"-->
+<!--        android:icon="@drawable/ic_baseline_mode_comment_24"/>-->
     <item
         android:id="@+id/globe"
         android:enabled="true"

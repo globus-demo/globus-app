@@ -9,13 +9,10 @@
         android:id="@+id/name_surname_field_profile"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="20dp"
-        android:layout_marginHorizontal="10dp"
+        android:layout_margin="10dp"
         android:textSize="35sp"
-        app:layout_constraintBottom_toBottomOf="@+id/profile_photo"
-        app:layout_constraintStart_toEndOf="@+id/profile_photo"
-        app:layout_constraintTop_toTopOf="@+id/profile_photo" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/e_mail_field_profile"
@@ -27,11 +24,20 @@
         app:layout_constraintBottom_toBottomOf="@+id/name_surname_field_profile"
         app:layout_constraintStart_toEndOf="@+id/name_surname_field_profile" />
 
+    <View
+        android:id="@+id/view"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginHorizontal="20dp"
+        android:background="#989898"
+        app:layout_constraintBottom_toTopOf="@+id/show_friends"
+        app:layout_constraintEnd_toEndOf="parent" />
+
     <Button
         android:id="@+id/show_friends"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="20dp"
+        android:layout_marginTop="30dp"
         android:text="@string/friends"
         app:layout_constraintEnd_toStartOf="@+id/show_activity"
         app:layout_constraintHorizontal_bias="0.5"
@@ -49,23 +55,22 @@
         app:layout_constraintStart_toEndOf="@+id/show_friends"
         app:layout_constraintTop_toTopOf="@+id/show_friends" />
 
-<!--    <Button-->
-<!--        android:id="@+id/show_statistic"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_margin="20dp"-->
-<!--        android:text="@string/statistics"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintHorizontal_bias="0.5"-->
-<!--        app:layout_constraintStart_toEndOf="@+id/show_activity"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/name_surname_field_profile" />-->
+    <!--    <Button-->
+    <!--        android:id="@+id/show_statistic"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_margin="20dp"-->
+    <!--        android:text="@string/statistics"-->
+    <!--        app:layout_constraintEnd_toEndOf="parent"-->
+    <!--        app:layout_constraintHorizontal_bias="0.5"-->
+    <!--        app:layout_constraintStart_toEndOf="@+id/show_activity"-->
+    <!--        app:layout_constraintTop_toBottomOf="@+id/name_surname_field_profile" />-->
 
     <FrameLayout
         android:id="@+id/profile_container"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginHorizontal="10dp"
-        android:layout_marginTop="10dp"
         android:layout_marginBottom="40dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -73,15 +78,5 @@
         app:layout_constraintTop_toBottomOf="@+id/show_activity">
 
     </FrameLayout>
-
-    <ImageView
-        android:id="@+id/profile_photo"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:layout_margin="20dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_baseline_account_circle_24"
-        android:contentDescription="@string/profile_photo" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

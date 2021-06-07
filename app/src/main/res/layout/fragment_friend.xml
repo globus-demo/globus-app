@@ -37,6 +37,16 @@
         app:layout_constraintBottom_toBottomOf="@+id/name_surname_field_friend"
         app:layout_constraintStart_toEndOf="@+id/name_surname_field_friend" />
 
+    <View
+        android:id="@+id/view"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginHorizontal="20dp"
+        android:background="#989898"
+        app:layout_constraintBottom_toTopOf="@+id/friends_count_friend"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/friend_photo" />
+
     <TextView
         android:id="@+id/friends_count_friend"
         android:layout_width="wrap_content"
@@ -62,7 +72,6 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginHorizontal="10dp"
-        android:layout_marginTop="10dp"
         android:layout_marginBottom="40dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
