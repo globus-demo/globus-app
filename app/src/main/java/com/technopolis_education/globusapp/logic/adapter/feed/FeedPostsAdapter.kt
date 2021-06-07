@@ -1,25 +1,25 @@
-package com.technopolis_education.globusapp.logic.adapter.profile
+package com.technopolis_education.globusapp.logic.adapter.feed
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Filter
 import android.widget.Filterable
 import androidx.recyclerview.widget.RecyclerView
-import com.technopolis_education.globusapp.databinding.ItemProfileActiivityCardBinding
+import com.technopolis_education.globusapp.databinding.ItemFeedPostBinding
 import com.technopolis_education.globusapp.model.UserActivity
 
-class ProfileUserActivityAdapter(
-    private val userActivity: ArrayList<UserActivity>
-) : RecyclerView.Adapter<ProfileUserActivityViewHolder>(), Filterable {
+class FeedPostsAdapter(
+    private val activity: ArrayList<UserActivity>,
+) : RecyclerView.Adapter<FeedPostsViewHolder>(), Filterable {
 
-    var userActivityList: ArrayList<UserActivity> = userActivity
+    var activityList: ArrayList<UserActivity> = activity
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): ProfileUserActivityViewHolder {
-        return ProfileUserActivityViewHolder(
-            ItemProfileActiivityCardBinding.inflate(
+    ): FeedPostsViewHolder {
+        return FeedPostsViewHolder(
+            ItemFeedPostBinding.inflate(
                 LayoutInflater.from(parent.context),
                 parent,
                 false
@@ -27,27 +27,27 @@ class ProfileUserActivityAdapter(
         )
     }
 
-    override fun onBindViewHolder(holder: ProfileUserActivityViewHolder, position: Int) {
-        holder.activityAuthor.text = userActivityList[position].author
-        holder.activityTitle.text = userActivityList[position].title
-        holder.activityContent.text = userActivityList[position].content
-        holder.activityCountry.text = userActivityList[position].country
-        holder.activityDate.text = userActivityList[position].date
+    override fun onBindViewHolder(holder: FeedPostsViewHolder, position: Int) {
+        holder.title?.text = activityList[position].title
+        holder.content?.text = activityList[position].content
+        holder.creator?.text = activityList[position].author
+        holder.country?.text = activityList[position].country
+        holder.date?.text = activityList[position].date
     }
 
     override fun getItemCount(): Int {
-        return userActivityList.size
+        return activityList.size
     }
 
     override fun getFilter(): Filter {
         return object : Filter() {
             override fun performFiltering(constraint: CharSequence?): FilterResults {
                 val charSearch = constraint.toString()
-                userActivityList = if (charSearch.isEmpty()) {
-                    userActivity
+                activityList = if (charSearch.isEmpty()) {
+                    activity
                 } else {
                     val resultList = ArrayList<UserActivity>()
-                    for (activity in userActivity) {
+                    for (activity in activityList) {
                         if ((activity.title)
                                 .contains(charSearch.toLowerCase())
                         ) {
@@ -57,13 +57,13 @@ class ProfileUserActivityAdapter(
                     resultList
                 }
                 val filterResult = FilterResults()
-                filterResult.values = userActivityList
+                filterResult.values = activityList
                 return filterResult
             }
 
             @Suppress("UNCHECKED_CAST")
             override fun publishResults(constraint: CharSequence?, results: FilterResults?) {
-                userActivityList = results?.values as ArrayList<UserActivity>
+                activityList = results?.values as ArrayList<UserActivity>
                 notifyDataSetChanged()
             }
         }

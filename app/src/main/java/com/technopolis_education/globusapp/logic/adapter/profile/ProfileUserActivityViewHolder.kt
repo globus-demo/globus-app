@@ -8,5 +8,6 @@ class ProfileUserActivityViewHolder(binding: ItemProfileActiivityCardBinding) :
     val activityTitle = binding.activityTitle
     val activityAuthor = binding.activityAuthor
     val activityContent = binding.activityContent
+    val activityCountry = binding.activityCountry
     val activityDate = binding.activityDate
 }
