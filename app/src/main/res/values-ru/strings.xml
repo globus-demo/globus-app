@@ -30,4 +30,10 @@
     <string name="statistics">Статистика</string>
     <string name="delete">Удалить</string>
     <string name="profile_photo">Фото профиля</string>
+    <string name="the_user_has_no_subscriptions_yet">У пользователя пока нет подписок.</string>
+    <string name="you_don_t_have_any_friends_yet_you_can_find_them_by_clicking_on_the_button_above">У вас пока нет друзей. Вы можете найти их, нажав кнопку выше</string>
+    <string name="submit">Отправить</string>
+    <string name="enable_marks">Маркеры</string>
+    <string name="retry">Повторить</string>
+    <string name="error_no_internet_connection">Ошибка: Нет подключения к интернету</string>
 </resources>
