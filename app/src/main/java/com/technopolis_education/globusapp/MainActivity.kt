@@ -11,7 +11,6 @@ import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.technopolis_education.globusapp.databinding.ActivityMainBinding
 import com.technopolis_education.globusapp.ui.auth.AuthorizationActivity
-import com.technopolis_education.globusapp.ui.start.StartActivity
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding

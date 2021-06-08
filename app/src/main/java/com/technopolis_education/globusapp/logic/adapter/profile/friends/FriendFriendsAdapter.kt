@@ -7,14 +7,14 @@ import android.widget.Filterable
 import androidx.recyclerview.widget.RecyclerView
 import com.technopolis_education.globusapp.databinding.ItemFriendFriendCardBinding
 import com.technopolis_education.globusapp.logic.interfaces.profile.OnFriendClickListener
-import com.technopolis_education.globusapp.model.UserInfoResponse
+import com.technopolis_education.globusapp.model.FriendsInfo
 
 class FriendFriendsAdapter(
-    private val friendFriends: ArrayList<UserInfoResponse>,
+    private val friendFriends: ArrayList<FriendsInfo>,
     private val clickListener: OnFriendClickListener
 ) : RecyclerView.Adapter<FriendFriendsViewHolder>(), Filterable {
 
-    var friendFriendsList: ArrayList<UserInfoResponse> = friendFriends
+    var friendFriendsList: ArrayList<FriendsInfo> = friendFriends
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FriendFriendsViewHolder {
         return FriendFriendsViewHolder(
@@ -28,7 +28,7 @@ class FriendFriendsAdapter(
 
     override fun onBindViewHolder(holder: FriendFriendsViewHolder, position: Int) {
         holder.friendName.text =
-            friendFriendsList[position].name + " " + friendFriendsList[position].surname
+            "${friendFriendsList[position].name} ${friendFriendsList[position].surname}"
         holder.friendEmail.text = friendFriendsList[position].email
 
         holder.initializeFriend(friendFriendsList[position], clickListener)
@@ -45,7 +45,7 @@ class FriendFriendsAdapter(
                 friendFriendsList = if (charSearch.isEmpty()) {
                     friendFriends
                 } else {
-                    val resultList = ArrayList<UserInfoResponse>()
+                    val resultList = ArrayList<FriendsInfo>()
                     for (friend in friendFriends) {
                         if ((friend.name + " " + friend.surname)
                                 .contains(charSearch.toLowerCase())
@@ -62,7 +62,7 @@ class FriendFriendsAdapter(
 
             @Suppress("UNCHECKED_CAST")
             override fun publishResults(constraint: CharSequence?, results: FilterResults?) {
-                friendFriendsList = results?.values as ArrayList<UserInfoResponse>
+                friendFriendsList = results?.values as ArrayList<FriendsInfo>
                 notifyDataSetChanged()
             }
         }

@@ -101,7 +101,7 @@ class RegisterActivity : AppCompatActivity() {
                     val toast =
                         Toast.makeText(
                             applicationContext,
-                            "Invalid email",
+                            getString(R.string.invalid_email),
                             Toast.LENGTH_SHORT
                         )
                     toast.show()
@@ -109,7 +109,7 @@ class RegisterActivity : AppCompatActivity() {
                     val toast =
                         Toast.makeText(
                             applicationContext,
-                            "Invalid username",
+                            getString(R.string.invalid_username),
                             Toast.LENGTH_SHORT
                         )
                     toast.show()

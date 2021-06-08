@@ -30,4 +30,19 @@
     <string name="statistics">Statistics</string>
     <string name="delete">Delete</string>
     <string name="profile_photo">Profile photo</string>
+    <string name="you_don_t_have_any_friends_yet_you_can_find_them_by_clicking_on_the_button_above">You don\'t have any friends yet. \nYou can find them by clicking on the button above</string>
+    <string name="the_user_has_no_subscriptions_yet">The user has no subscriptions yet.</string>
+    <string name="submit">Submit</string>
+    <string name="enable_marks">Enable marks</string>
+    <string name="retry">Retry</string>
+    <string name="error_no_internet_connection">Error: No Internet connection</string>
+    <string name="select_an_action">Select an action:</string>
+    <string name="delete_marker">Delete marker</string>
+    <string name="select_marker">Select marker</string>
+    <string name="no_internet_connection_nplease_check_your_connection_nand_refresh_the_page">No internet connection.\nPlease check your connection\nand refresh the page</string>
+    <string name="new_marker_added">New marker added</string>
+    <string name="successful_authorization">Successful authorization</string>
+    <string name="incorrect_email_or_password">Incorrect email or password</string>
+    <string name="invalid_email">Invalid email</string>
+    <string name="invalid_username">Invalid username</string>
 </resources>
