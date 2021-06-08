@@ -30,4 +30,7 @@
     <string name="statistics">Statistics</string>
     <string name="delete">Delete</string>
     <string name="profile_photo">Profile photo</string>
+    <string name="no_internet_error">No internet connection</string>
+    <string name="wrong_email_or_password">Incorrect email or password</string>
+    <string name="auth_success">Successful authorization</string>
 </resources>

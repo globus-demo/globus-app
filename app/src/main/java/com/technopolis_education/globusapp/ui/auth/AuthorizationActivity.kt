@@ -5,11 +5,14 @@ import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
+import android.view.Window
 import android.widget.Button
-import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.widget.addTextChangedListener
+import com.google.android.material.textfield.TextInputEditText
+import com.google.android.material.textfield.TextInputLayout
 import com.technopolis_education.globusapp.MainActivity
 import com.technopolis_education.globusapp.R
 import com.technopolis_education.globusapp.api.WebClient
@@ -27,22 +30,37 @@ class AuthorizationActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.authorization_main)
+        supportActionBar?.hide()
         title = getString(R.string.authorization)
 
-        val login = findViewById<EditText>(R.id.login)
-        val password = findViewById<EditText>(R.id.password)
+        val login = findViewById<TextInputEditText>(R.id.et_login)
+        val tilLogin = findViewById<TextInputLayout>(R.id.til_login)
+        val password = findViewById<TextInputEditText>(R.id.et_password)
+        val tilPassword = findViewById<TextInputLayout>(R.id.til_password)
         val button = findViewById<Button>(R.id.button)
         val register = findViewById<TextView>(R.id.register)
 
+        login.addTextChangedListener {
+            if (tilLogin.error != null) {
+                tilLogin.isErrorEnabled = false
+                tilLogin.error = null
+            }
+        }
+        password.addTextChangedListener {
+            if (tilPassword.error != null) {
+                tilPassword.isErrorEnabled = false
+                tilPassword.error = null
+            }
+        }
         button.setOnClickListener {
             if (login.text.toString().isEmpty()) {
-                login.hint = getString(R.string.hint)
-                login.setHintTextColor(Color.RED)
+                tilLogin.isErrorEnabled = true
+                tilLogin.error = getString(R.string.hint)
             }
 
             if (password.text.toString().isEmpty()) {
-                password.hint = getString(R.string.hint)
-                password.setHintTextColor(Color.RED)
+                tilPassword.isErrorEnabled = true
+                tilPassword.error = getString(R.string.hint)
             }
 
             if (password.text.toString().isNotEmpty() && login.text.toString().isNotEmpty()) {
@@ -58,21 +76,25 @@ class AuthorizationActivity : AppCompatActivity() {
                         if (response.body()?.status == true) {
                             Toast.makeText(
                                 applicationContext,
-                                "Successful authorization",
+                                getString(R.string.auth_success),
                                 Toast.LENGTH_SHORT
                             ).show()
                             startFragment(response.body())
                         } else {
                             Toast.makeText(
                                 applicationContext,
-                                "Incorrect email or password",
+                                getString(R.string.wrong_email_or_password),
                                 Toast.LENGTH_SHORT
                             ).show()
                         }
                     }
 
                     override fun onFailure(call: Call<UserToken>, t: Throwable) {
-                        Log.i("test", "error $t")
+                        Toast.makeText(
+                            applicationContext,
+                            getString(R.string.no_internet_error),
+                            Toast.LENGTH_SHORT
+                        ).show()
                     }
                 })
             }

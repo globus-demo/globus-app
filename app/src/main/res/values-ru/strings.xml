@@ -30,4 +30,7 @@
     <string name="statistics">Статистика</string>
     <string name="delete">Удалить</string>
     <string name="profile_photo">Фото профиля</string>
+    <string name="auth_success">Вы успешно авторизовались</string>
+    <string name="no_internet_error">Отсутствует интернет соединение</string>
+    <string name="wrong_email_or_password">Неправильный Email или пароль</string>
 </resources>
