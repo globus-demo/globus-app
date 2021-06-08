@@ -46,4 +46,5 @@
     <string name="new_marker_added">New marker added</string>
     <string name="invalid_email">Invalid email</string>
     <string name="invalid_username">Invalid username</string>
+    <string name="no_server_connection">No server connection</string>
 </resources>

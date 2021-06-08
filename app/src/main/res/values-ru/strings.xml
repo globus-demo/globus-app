@@ -46,4 +46,5 @@
     <string name="new_marker_added">Новый маркер добавлен</string>
     <string name="invalid_email">Некорректный email</string>
     <string name="invalid_username">Некорректное имя пользователя</string>
+    <string name="no_server_connection">Отсутствует соединение с сервером</string>
 </resources>

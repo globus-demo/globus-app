@@ -102,7 +102,7 @@ class AuthorizationActivity : AppCompatActivity() {
                         override fun onFailure(call: Call<UserToken>, t: Throwable) {
                             Toast.makeText(
                                 applicationContext,
-                                getString(R.string.no_internet_error),
+                                getString(R.string.no_server_connection),
                                 Toast.LENGTH_SHORT
                             ).show()
                         }
