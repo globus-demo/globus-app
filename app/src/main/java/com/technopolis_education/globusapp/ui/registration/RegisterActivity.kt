@@ -2,13 +2,15 @@ package com.technopolis_education.globusapp.ui.registration
 
 import android.content.Context
 import android.content.Intent
-import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
+import android.view.MenuItem
 import android.widget.Button
-import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.widget.addTextChangedListener
+import com.google.android.material.textfield.TextInputEditText
+import com.google.android.material.textfield.TextInputLayout
 import com.technopolis_education.globusapp.MainActivity
 import com.technopolis_education.globusapp.R
 import com.technopolis_education.globusapp.api.WebClient
@@ -24,34 +26,73 @@ class RegisterActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register)
-        title = "Registration"
+        title = null
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        val nameAndSurname = findViewById<EditText>(R.id.name_surname_field)
-        val email = findViewById<EditText>(R.id.e_mail_field)
-        val password = findViewById<EditText>(R.id.password_field)
-        val confirmPassword = findViewById<EditText>(R.id.confirm_password_field)
+        val nameAndSurname = findViewById<TextInputEditText>(R.id.name_surname_field)
+        val email = findViewById<TextInputEditText>(R.id.e_mail_field)
+        val password = findViewById<TextInputEditText>(R.id.password_field)
+        val confirmPassword = findViewById<TextInputEditText>(R.id.confirm_password_field)
+
+        val tilLogin = findViewById<TextInputLayout>(R.id.til_login)
+        val tilPassword = findViewById<TextInputLayout>(R.id.til_password)
+        val tilName = findViewById<TextInputLayout>(R.id.til_name)
+        val tilConfirmPassword = findViewById<TextInputLayout>(R.id.til_confirm_password)
 
         val confirm = findViewById<Button>(R.id.confirm_register)
 
+        nameAndSurname.addTextChangedListener {
+            tilName?.let {
+                it.isErrorEnabled = false
+                it.error = null
+            }
+        }
+        password.addTextChangedListener {
+            tilPassword?.let {
+                it.isErrorEnabled = false
+                it.error = null
+            }
+        }
+        email.addTextChangedListener {
+            tilLogin?.let {
+                it.isErrorEnabled = false
+                it.error = null
+            }
+        }
+        confirmPassword.addTextChangedListener {
+            tilConfirmPassword?.let {
+                it.isErrorEnabled = false
+                it.error = null
+            }
+        }
+
         confirm.setOnClickListener {
             if (nameAndSurname.text.toString().isEmpty()) {
-                nameAndSurname.hint = getString(R.string.hint)
-                nameAndSurname.setHintTextColor(Color.RED)
+                tilName?.let {
+                    it.isErrorEnabled = true
+                    it.error = getString(R.string.hint)
+                }
             }
 
             if (email.text.toString().isEmpty()) {
-                email.hint = getString(R.string.hint)
-                email.setHintTextColor(Color.RED)
+                tilLogin?.let {
+                    it.isErrorEnabled = true
+                    it.error = getString(R.string.hint)
+                }
             }
 
             if (password.text.toString().isEmpty()) {
-                password.hint = getString(R.string.hint)
-                password.setHintTextColor(Color.RED)
+                tilPassword?.let {
+                    it.isErrorEnabled = true
+                    it.error = getString(R.string.hint)
+                }
             }
 
             if (confirmPassword.text.toString().isEmpty()) {
-                confirmPassword.hint = getString(R.string.hint)
-                confirmPassword.setHintTextColor(Color.RED)
+                tilConfirmPassword?.let {
+                    it.isErrorEnabled = true
+                    it.error = getString(R.string.hint)
+                }
             }
 
             if (confirmPassword.text.toString() != password.text.toString()) {
@@ -116,6 +157,13 @@ class RegisterActivity : AppCompatActivity() {
                 }
             }
         }
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == android.R.id.home) {
+            onBackPressed()
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     private fun startFragment(userResponse: UserToken?) {

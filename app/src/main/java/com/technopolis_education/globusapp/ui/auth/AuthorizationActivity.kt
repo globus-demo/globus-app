@@ -31,7 +31,6 @@ class AuthorizationActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.authorization_main)
         supportActionBar?.hide()
-        title = getString(R.string.authorization)
 
         val login = findViewById<TextInputEditText>(R.id.et_login)
         val tilLogin = findViewById<TextInputLayout>(R.id.til_login)

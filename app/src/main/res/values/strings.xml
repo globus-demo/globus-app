@@ -6,10 +6,10 @@
     <string name="auth_title">To work with our application please log in</string>
     <string name="register_text">Not registered yet? Create an account</string>
     <string name="registration_title">Registration</string>
-    <string name="name_surname_title">Enter your Name and Surname</string>
+    <string name="name_surname_title">Name and Surname</string>
     <string name="confirm_password_title">Confirm your password</string>
     <string name="enter_password_titile">Enter your password</string>
-    <string name="enter_e_mail_title">Enter your e-mail</string>
+    <string name="enter_e_mail_title">E-mail</string>
     <string name="confirm_registration">Confirm registration</string>
     <string name="enter_your_password">Enter your password</string>
     <string name="feed_page">Feed</string>
@@ -33,4 +33,5 @@
     <string name="no_internet_error">No internet connection</string>
     <string name="wrong_email_or_password">Incorrect email or password</string>
     <string name="auth_success">Successful authorization</string>
+    <string name="name_surname_hint">Enter name and surname</string>
 </resources>

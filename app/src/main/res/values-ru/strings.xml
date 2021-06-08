@@ -5,11 +5,11 @@
     <string name="password">Пароль</string>
     <string name="auth_title">Для работы с приложением авторизуйтесь</string>
     <string name="register_text">Еще не зарегистрированы? Создать аккаунт</string>
-    <string name="registration_title">Регистриция</string>
-    <string name="name_surname_title">Введите Имя и Фамилию</string>
+    <string name="registration_title">Регистрация</string>
+    <string name="name_surname_title">Имя и Фамилия</string>
     <string name="confirm_password_title">Подтвердите пароль</string>
     <string name="enter_password_titile">Введите ваш пароль</string>
-    <string name="enter_e_mail_title">Введите ваш e-mail</string>
+    <string name="enter_e_mail_title">E-mail</string>
     <string name="confirm_registration">Подтвердить регистрацию</string>
     <string name="enter_your_password">Введите ваш пароль</string>
     <string name="feed_page">Лента</string>
@@ -33,4 +33,5 @@
     <string name="auth_success">Вы успешно авторизовались</string>
     <string name="no_internet_error">Отсутствует интернет соединение</string>
     <string name="wrong_email_or_password">Неправильный Email или пароль</string>
+    <string name="name_surname_hint">Введите имя и фамилию</string>
 </resources>

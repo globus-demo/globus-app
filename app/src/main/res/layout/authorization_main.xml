@@ -51,7 +51,6 @@
             android:id="@+id/et_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/rounded_rect_16"
             android:textColor="@color/default_text"
             android:backgroundTint="@color/design_default_color_background"
             android:inputType="textPassword" />
