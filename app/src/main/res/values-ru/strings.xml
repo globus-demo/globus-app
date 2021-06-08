@@ -31,7 +31,19 @@
     <string name="delete">Удалить</string>
     <string name="profile_photo">Фото профиля</string>
     <string name="auth_success">Вы успешно авторизовались</string>
-    <string name="no_internet_error">Отсутствует интернет соединение</string>
+    <string name="error_no_internet_connection">Отсутствует интернет соединение</string>
     <string name="wrong_email_or_password">Неправильный Email или пароль</string>
     <string name="name_surname_hint">Введите имя и фамилию</string>
+    <string name="the_user_has_no_subscriptions_yet">У пользователя пока нет подписок.</string>
+    <string name="you_don_t_have_any_friends_yet_you_can_find_them_by_clicking_on_the_button_above">У вас пока нет друзей. Вы можете найти их, нажав кнопку выше</string>
+    <string name="submit">Отправить</string>
+    <string name="enable_marks">Маркеры</string>
+    <string name="retry">Повторить</string>
+    <string name="select_an_action">Выберите действие:</string>
+    <string name="delete_marker">Удалить маркер</string>
+    <string name="no_internet_connection_nplease_check_your_connection_nand_refresh_the_page">Нет подключения к интернету. Пожалуйста, проверьте подключения и обновите страницу</string>
+    <string name="select_marker">Выбрать маркер</string>
+    <string name="new_marker_added">Новый маркер добавлен</string>
+    <string name="invalid_email">Некорректный email</string>
+    <string name="invalid_username">Некорректное имя пользователя</string>
 </resources>

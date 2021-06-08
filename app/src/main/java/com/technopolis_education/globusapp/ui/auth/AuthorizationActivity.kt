@@ -2,13 +2,12 @@ package com.technopolis_education.globusapp.ui.auth
 
 import android.content.Context
 import android.content.Intent
-import android.graphics.Color
+import android.os.Build
 import android.os.Bundle
-import android.util.Log
-import android.view.Window
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.addTextChangedListener
 import com.google.android.material.textfield.TextInputEditText
@@ -16,6 +15,7 @@ import com.google.android.material.textfield.TextInputLayout
 import com.technopolis_education.globusapp.MainActivity
 import com.technopolis_education.globusapp.R
 import com.technopolis_education.globusapp.api.WebClient
+import com.technopolis_education.globusapp.logic.check.InternetConnectionCheck
 import com.technopolis_education.globusapp.model.UserAuthRequest
 import com.technopolis_education.globusapp.model.UserToken
 import com.technopolis_education.globusapp.ui.registration.RegisterActivity
@@ -27,6 +27,7 @@ class AuthorizationActivity : AppCompatActivity() {
 
     private val webClient = WebClient().getApi()
 
+    @RequiresApi(Build.VERSION_CODES.M)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.authorization_main)
@@ -52,50 +53,61 @@ class AuthorizationActivity : AppCompatActivity() {
             }
         }
         button.setOnClickListener {
-            if (login.text.toString().isEmpty()) {
-                tilLogin.isErrorEnabled = true
-                tilLogin.error = getString(R.string.hint)
-            }
+            if (!InternetConnectionCheck().isOnline(this)) {
+                Toast.makeText(
+                    applicationContext,
+                    getString(R.string.error_no_internet_connection),
+                    Toast.LENGTH_LONG
+                ).show()
+            } else {
+                if (login.text.toString().isEmpty()) {
+                    tilLogin.isErrorEnabled = true
+                    tilLogin.error = getString(R.string.hint)
+                }
 
-            if (password.text.toString().isEmpty()) {
-                tilPassword.isErrorEnabled = true
-                tilPassword.error = getString(R.string.hint)
-            }
+                if (password.text.toString().isEmpty()) {
+                    tilPassword.isErrorEnabled = true
+                    tilPassword.error = getString(R.string.hint)
+                }
 
-            if (password.text.toString().isNotEmpty() && login.text.toString().isNotEmpty()) {
+                if (password.text.toString().isNotEmpty() && login.text.toString().isNotEmpty()) {
 
-                val userAuth = UserAuthRequest(
-                    login.text.toString(),
-                    password.text.toString()
-                )
+                    val userAuth = UserAuthRequest(
+                        login.text.toString(),
+                        password.text.toString()
+                    )
 
-                val callAuth = webClient.auth(userAuth)
-                callAuth.enqueue(object : Callback<UserToken> {
-                    override fun onResponse(call: Call<UserToken>, response: Response<UserToken>) {
-                        if (response.body()?.status == true) {
+                    val callAuth = webClient.auth(userAuth)
+                    callAuth.enqueue(object : Callback<UserToken> {
+                        override fun onResponse(
+                            call: Call<UserToken>,
+                            response: Response<UserToken>
+                        ) {
+                            if (response.body()?.status == true) {
+                                Toast.makeText(
+                                    applicationContext,
+                                    getString(R.string.auth_success),
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                                startFragment(response.body())
+                            } else {
+                                Toast.makeText(
+                                    applicationContext,
+                                    getString(R.string.wrong_email_or_password),
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                            }
+                        }
+
+                        override fun onFailure(call: Call<UserToken>, t: Throwable) {
                             Toast.makeText(
                                 applicationContext,
-                                getString(R.string.auth_success),
-                                Toast.LENGTH_SHORT
-                            ).show()
-                            startFragment(response.body())
-                        } else {
-                            Toast.makeText(
-                                applicationContext,
-                                getString(R.string.wrong_email_or_password),
+                                getString(R.string.no_internet_error),
                                 Toast.LENGTH_SHORT
                             ).show()
                         }
-                    }
-
-                    override fun onFailure(call: Call<UserToken>, t: Throwable) {
-                        Toast.makeText(
-                            applicationContext,
-                            getString(R.string.no_internet_error),
-                            Toast.LENGTH_SHORT
-                        ).show()
-                    }
-                })
+                    })
+                }
             }
         }
 
