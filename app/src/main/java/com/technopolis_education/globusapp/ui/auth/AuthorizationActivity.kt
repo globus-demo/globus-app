@@ -2,16 +2,16 @@ package com.technopolis_education.globusapp.ui.auth
 
 import android.content.Context
 import android.content.Intent
-import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.widget.Button
-import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.widget.addTextChangedListener
+import com.google.android.material.textfield.TextInputEditText
+import com.google.android.material.textfield.TextInputLayout
 import com.technopolis_education.globusapp.MainActivity
 import com.technopolis_education.globusapp.R
 import com.technopolis_education.globusapp.api.WebClient
@@ -31,13 +31,27 @@ class AuthorizationActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.authorization_main)
-        title = getString(R.string.authorization)
+        supportActionBar?.hide()
 
-        val login = findViewById<EditText>(R.id.login)
-        val password = findViewById<EditText>(R.id.password)
+        val login = findViewById<TextInputEditText>(R.id.et_login)
+        val tilLogin = findViewById<TextInputLayout>(R.id.til_login)
+        val password = findViewById<TextInputEditText>(R.id.et_password)
+        val tilPassword = findViewById<TextInputLayout>(R.id.til_password)
         val button = findViewById<Button>(R.id.button)
         val register = findViewById<TextView>(R.id.register)
 
+        login.addTextChangedListener {
+            if (tilLogin.error != null) {
+                tilLogin.isErrorEnabled = false
+                tilLogin.error = null
+            }
+        }
+        password.addTextChangedListener {
+            if (tilPassword.error != null) {
+                tilPassword.isErrorEnabled = false
+                tilPassword.error = null
+            }
+        }
         button.setOnClickListener {
             if (!InternetConnectionCheck().isOnline(this)) {
                 Toast.makeText(
@@ -46,15 +60,14 @@ class AuthorizationActivity : AppCompatActivity() {
                     Toast.LENGTH_LONG
                 ).show()
             } else {
-
                 if (login.text.toString().isEmpty()) {
-                    login.hint = getString(R.string.hint)
-                    login.setHintTextColor(Color.RED)
+                    tilLogin.isErrorEnabled = true
+                    tilLogin.error = getString(R.string.hint)
                 }
 
                 if (password.text.toString().isEmpty()) {
-                    password.hint = getString(R.string.hint)
-                    password.setHintTextColor(Color.RED)
+                    tilPassword.isErrorEnabled = true
+                    tilPassword.error = getString(R.string.hint)
                 }
 
                 if (password.text.toString().isNotEmpty() && login.text.toString().isNotEmpty()) {
@@ -73,21 +86,25 @@ class AuthorizationActivity : AppCompatActivity() {
                             if (response.body()?.status == true) {
                                 Toast.makeText(
                                     applicationContext,
-                                    getString(R.string.successful_authorization),
+                                    getString(R.string.auth_success),
                                     Toast.LENGTH_SHORT
                                 ).show()
                                 startFragment(response.body())
                             } else {
                                 Toast.makeText(
                                     applicationContext,
-                                    getString(R.string.incorrect_email_or_password),
+                                    getString(R.string.wrong_email_or_password),
                                     Toast.LENGTH_SHORT
                                 ).show()
                             }
                         }
 
                         override fun onFailure(call: Call<UserToken>, t: Throwable) {
-                            Log.i("test", "error $t")
+                            Toast.makeText(
+                                applicationContext,
+                                getString(R.string.no_server_connection),
+                                Toast.LENGTH_SHORT
+                            ).show()
                         }
                     })
                 }
